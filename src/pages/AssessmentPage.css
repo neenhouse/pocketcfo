@@ -1,0 +1,312 @@
+.assessment {
+  padding: var(--space-12) 0;
+}
+
+.assessment-container {
+  max-width: 720px;
+}
+
+.assessment-header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.assessment-header h1 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  margin-bottom: var(--space-3);
+  color: var(--warm-50);
+}
+
+.assessment-header p {
+  color: var(--text-secondary);
+}
+
+.assessment-progress {
+  margin-bottom: var(--space-10);
+}
+
+.step-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-3);
+}
+
+.step-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.step-label.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.step-label.done {
+  color: var(--green-400);
+  cursor: pointer;
+}
+
+.step-label:disabled {
+  cursor: default;
+}
+
+/* Step content */
+.step-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-2);
+  color: var(--warm-50);
+}
+
+.step-desc {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+  font-size: 0.9375rem;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: var(--space-6);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  transition: border-color var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.form-group select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.input-with-prefix {
+  display: flex;
+  align-items: center;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
+}
+
+.input-with-prefix:focus-within {
+  border-color: var(--accent);
+}
+
+.input-with-prefix input {
+  border: none;
+  background: none;
+  flex: 1;
+}
+
+.input-with-prefix input:focus {
+  border: none;
+  outline: none;
+}
+
+.prefix, .suffix {
+  padding: 0 var(--space-3);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  user-select: none;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.form-row.triple {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Radio buttons */
+.radio-group {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.radio-btn {
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.radio-btn:hover {
+  border-color: var(--accent-light);
+  color: var(--text);
+}
+
+.radio-btn.selected {
+  background: rgba(217, 119, 6, 0.15);
+  border-color: var(--accent);
+  color: var(--accent-light);
+  font-weight: 500;
+}
+
+/* Debt cards */
+.debt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.debt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.debt-number {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--gold-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.debt-remove {
+  font-size: 0.8125rem;
+  color: var(--error);
+  opacity: 0.7;
+}
+
+.debt-remove:hover {
+  opacity: 1;
+}
+
+.no-debts {
+  color: var(--green-400);
+  font-size: 0.875rem;
+  margin-top: var(--space-3);
+}
+
+/* Goals */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.goal-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--bg-card-hover);
+}
+
+.goal-card.selected {
+  border-color: var(--gold-500);
+  background: rgba(217, 119, 6, 0.08);
+}
+
+.goal-icon {
+  font-size: 2rem;
+}
+
+.goal-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.goal-check {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+}
+
+/* Review */
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.review-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.review-label {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.review-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--gold-400);
+}
+
+/* Nav */
+.assessment-nav {
+  display: flex;
+  align-items: center;
+  padding-top: var(--space-8);
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .form-row, .form-row.triple {
+    grid-template-columns: 1fr;
+  }
+
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .goals-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
