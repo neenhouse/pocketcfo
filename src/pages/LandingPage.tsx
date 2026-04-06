@@ -141,14 +141,10 @@ export default function LandingPage() {
           {/* Tilted card mockup */}
           <div className="hero-mockup" aria-hidden="true">
             <div className="hero-mockup-card">
-              <img
-                src="/hero-og.webp"
-                alt=""
-                className="hero-mockup-img"
-                loading="eager"
-                width="600"
-                height="315"
-              />
+              <video autoPlay muted loop playsInline poster="/hero-og.webp" className="hero-mockup-img" width={600} height={315}>
+                <source src="/hero-og.webm" type="video/webm" />
+                <source src="/hero-og.mp4" type="video/mp4" />
+              </video>
               <div className="hero-mockup-glare" />
             </div>
           </div>
