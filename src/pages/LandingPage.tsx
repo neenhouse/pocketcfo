@@ -99,40 +99,57 @@ export default function LandingPage() {
     <div className="landing">
       {/* Hero */}
       <section className="hero">
-        <div className="container hero-inner">
-          <div className="hero-badge">Free forever. No credit card. No catch.</div>
-          <h1 className="hero-title">
-            <span className="hero-gold">Millionaire Advice.</span>
-            <br />
-            Minimum Wage Price.
-          </h1>
-          <p className="hero-subtitle">
-            The same caliber of financial strategy that costs $500/hour from a wealth manager.
-            <br />
-            <strong>Free. Because financial strategy shouldn't cost money you don't have.</strong>
-          </p>
-          <div className="hero-actions">
-            <Link to="/assessment">
-              <Button variant="primary" size="lg">Get Your Strategy</Button>
-            </Link>
-            <a href="#how-it-works">
-              <Button variant="secondary" size="lg">See How It Works</Button>
-            </a>
+        <div className="container hero-inner hero-split">
+          <div className="hero-copy">
+            <div className="hero-badge">Free forever. No credit card. No catch.</div>
+            <h1 className="hero-title">
+              <span className="hero-gold">Millionaire Advice.</span>
+              <br />
+              Minimum Wage Price.
+            </h1>
+            <p className="hero-subtitle">
+              The same caliber of financial strategy that costs $500/hour from a wealth manager.
+              <br />
+              <strong>Free. Because financial strategy shouldn't cost money you don't have.</strong>
+            </p>
+            <div className="hero-actions">
+              <Link to="/assessment">
+                <Button variant="primary" size="lg">Get Your Strategy</Button>
+              </Link>
+              <a href="#how-it-works">
+                <Button variant="secondary" size="lg">See How It Works</Button>
+              </a>
+            </div>
+
+            {/* Trust indicators */}
+            <div className="hero-trust">
+              <div className="trust-item">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Your data stays on your device</span>
+              </div>
+              <div className="trust-item">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" strokeWidth="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>No sign-up required</span>
+              </div>
+              <div className="trust-item">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                <span>Available to everyone</span>
+              </div>
+            </div>
           </div>
 
-          {/* Trust indicators */}
-          <div className="hero-trust">
-            <div className="trust-item">
-              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Your data stays on your device</span>
-            </div>
-            <div className="trust-item">
-              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" strokeWidth="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>No sign-up required</span>
-            </div>
-            <div className="trust-item">
-              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-              <span>Available to everyone</span>
+          {/* Tilted card mockup */}
+          <div className="hero-mockup" aria-hidden="true">
+            <div className="hero-mockup-card">
+              <img
+                src="/hero-og.webp"
+                alt=""
+                className="hero-mockup-img"
+                loading="eager"
+                width="600"
+                height="315"
+              />
+              <div className="hero-mockup-glare" />
             </div>
           </div>
         </div>
