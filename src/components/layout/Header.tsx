@@ -32,7 +32,7 @@ export default function Header() {
           <span>PocketCFO</span>
         </Link>
 
-        <nav className={`header-nav ${mobileOpen ? 'open' : ''}`}>
+        <nav id="header-nav" className={`header-nav ${mobileOpen ? 'open' : ''}`} aria-label="Main navigation">
           {navLinks.map(link => (
             <Link
               key={link.to}
@@ -49,6 +49,8 @@ export default function Header() {
           className="mobile-toggle"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileOpen}
+          aria-controls="header-nav"
         >
           <span className={`hamburger ${mobileOpen ? 'open' : ''}`} />
         </button>

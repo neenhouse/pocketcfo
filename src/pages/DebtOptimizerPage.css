@@ -45,6 +45,11 @@
   font-size: 0.75rem;
   color: var(--error);
   opacity: 0.7;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--space-2);
+  display: inline-flex;
+  align-items: center;
 }
 
 .debt-rm:hover { opacity: 1; }
@@ -76,7 +81,8 @@
 
 .debt-input-fields .field input:focus {
   border-color: var(--accent);
-  outline: none;
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.25);
 }
 
 .debt-opt-empty {
@@ -119,8 +125,12 @@
   height: 4px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-full);
-  outline: none;
   cursor: pointer;
+}
+
+.slider:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 .slider::-webkit-slider-thumb {

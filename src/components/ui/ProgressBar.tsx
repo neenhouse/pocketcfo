@@ -5,6 +5,7 @@ interface ProgressBarProps {
   max?: number
   color?: string
   label?: string
+  ariaLabel?: string
   showPercent?: boolean
   height?: number
 }
@@ -14,6 +15,7 @@ export default function ProgressBar({
   max = 100,
   color = 'var(--accent)',
   label,
+  ariaLabel,
   showPercent = false,
   height = 8,
 }: ProgressBarProps) {
@@ -27,7 +29,15 @@ export default function ProgressBar({
           {showPercent && <span className="progress-percent">{Math.round(percent)}%</span>}
         </div>
       )}
-      <div className="progress-track" style={{ height }} role="progressbar" aria-valuenow={value} aria-valuemin={0} aria-valuemax={max}>
+      <div
+        className="progress-track"
+        style={{ height }}
+        role="progressbar"
+        aria-valuenow={value}
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-label={ariaLabel ?? label ?? undefined}
+      >
         <div className="progress-fill" style={{ width: `${percent}%`, background: color }} />
       </div>
     </div>

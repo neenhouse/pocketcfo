@@ -16,7 +16,7 @@ export default function DashboardPage() {
     return (
       <div className="dashboard-empty container">
         <div className="empty-state">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--gold-400)" strokeWidth="1.5" strokeLinecap="round">
+          <svg aria-hidden="true" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--gold-400)" strokeWidth="1.5" strokeLinecap="round">
             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
           </svg>
           <h1>Your Dashboard is Waiting</h1>
@@ -147,7 +147,7 @@ export default function DashboardPage() {
         <h2>5-Year Net Worth Projection</h2>
         <p className="chart-subtitle">Based on your current savings potential and debt payoff schedule</p>
         <div className="chart-container">
-          <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="chart-svg">
+          <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="chart-svg" role="img" aria-label="5-year net worth projection chart">
             {/* Zero line */}
             {minVal < 0 && maxVal > 0 && (
               <line
@@ -201,13 +201,18 @@ export default function DashboardPage() {
         <div className="actions-list">
           {strategy.actionItems.map(item => (
             <div key={item.id} className={`action-item ${item.completed ? 'completed' : ''}`}>
-              <button className="action-check" onClick={() => toggleAction(item.id)}>
+              <button
+                className="action-check"
+                onClick={() => toggleAction(item.id)}
+                aria-label={item.completed ? `Mark "${item.title}" as incomplete` : `Mark "${item.title}" as complete`}
+                aria-pressed={item.completed}
+              >
                 {item.completed ? (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--gold-400)" stroke="none">
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="var(--gold-400)" stroke="none">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
                 ) : (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--border)" strokeWidth="2">
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--border)" strokeWidth="2">
                     <circle cx="12" cy="12" r="10"/>
                   </svg>
                 )}

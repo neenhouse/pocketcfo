@@ -272,10 +272,11 @@ export default function BenefitsFinderPage() {
               <button
                 className={`claim-btn ${claimed.has(benefit.id) ? 'claimed' : ''}`}
                 onClick={() => toggleClaimed(benefit.id)}
+                aria-pressed={claimed.has(benefit.id)}
               >
                 {claimed.has(benefit.id) ? (
                   <>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
                     Claimed
                   </>
                 ) : (

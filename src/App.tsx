@@ -10,26 +10,36 @@ const BenefitsFinderPage = lazy(() => import('./pages/BenefitsFinderPage'))
 
 function Loading() {
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: '60vh',
-      color: 'var(--text-secondary)',
-      fontFamily: 'var(--font-body)',
-    }}>
+    <div
+      role="status"
+      aria-label="Loading"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '60vh',
+        color: 'var(--text-secondary)',
+        fontFamily: 'var(--font-body)',
+      }}
+    >
       <div style={{ textAlign: 'center' }}>
-        <div style={{
-          width: 40,
-          height: 40,
-          border: '3px solid var(--border)',
-          borderTopColor: 'var(--accent)',
-          borderRadius: '50%',
-          animation: 'spin 0.8s linear infinite',
-          margin: '0 auto 16px',
-        }} />
+        <div
+          aria-hidden="true"
+          style={{
+            width: 40,
+            height: 40,
+            border: '3px solid var(--border)',
+            borderTopColor: 'var(--accent)',
+            borderRadius: '50%',
+            animation: 'spin 0.8s linear infinite',
+            margin: '0 auto 16px',
+          }}
+        />
         <p>Loading your strategy...</p>
-        <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
+        <style>{`
+          @keyframes spin { to { transform: rotate(360deg) } }
+          @media (prefers-reduced-motion: reduce) { .loading-spinner { animation: none !important; } }
+        `}</style>
       </div>
     </div>
   )

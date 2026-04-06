@@ -8,9 +8,10 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
+      <a href="#main-content" className="skip-to-content">Skip to content</a>
       <Header />
-      <main style={{ flex: 1 }}>{children}</main>
+      <main id="main-content" style={{ flex: 1 }}>{children}</main>
       <Footer />
     </div>
   )

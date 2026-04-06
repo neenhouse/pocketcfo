@@ -122,6 +122,7 @@ export default function AssessmentPage() {
                       key={f}
                       className={`radio-btn ${data.payFrequency === f ? 'selected' : ''}`}
                       onClick={() => updateField('payFrequency', f)}
+                      aria-pressed={data.payFrequency === f}
                     >
                       {f === 'biweekly' ? 'Every 2 weeks' : f.charAt(0).toUpperCase() + f.slice(1)}
                     </button>
@@ -141,6 +142,7 @@ export default function AssessmentPage() {
                       key={val}
                       className={`radio-btn ${data.filingStatus === val ? 'selected' : ''}`}
                       onClick={() => updateField('filingStatus', val)}
+                      aria-pressed={data.filingStatus === val}
                     >
                       {label}
                     </button>
@@ -164,10 +166,12 @@ export default function AssessmentPage() {
                     <button
                       className={`radio-btn ${data.hasEmployerBenefits ? 'selected' : ''}`}
                       onClick={() => updateField('hasEmployerBenefits', true)}
+                      aria-pressed={data.hasEmployerBenefits}
                     >Yes</button>
                     <button
                       className={`radio-btn ${!data.hasEmployerBenefits ? 'selected' : ''}`}
                       onClick={() => updateField('hasEmployerBenefits', false)}
+                      aria-pressed={!data.hasEmployerBenefits}
                     >No</button>
                   </div>
                 </div>
@@ -286,6 +290,7 @@ export default function AssessmentPage() {
                     <button
                       key={goal.id}
                       className={`goal-card ${selected ? 'selected' : ''}`}
+                      aria-pressed={selected}
                       onClick={() => {
                         if (selected) {
                           setData(prev => ({ ...prev, goals: prev.goals.filter(g => g.id !== goal.id) }))
@@ -300,7 +305,7 @@ export default function AssessmentPage() {
                       <span className="goal-icon">{goal.icon}</span>
                       <span className="goal-name">{goal.name}</span>
                       {selected && (
-                        <svg className="goal-check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-400)" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg aria-hidden="true" className="goal-check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-400)" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                       )}
                     </button>
                   )

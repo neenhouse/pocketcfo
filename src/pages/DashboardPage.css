@@ -74,7 +74,7 @@
 
 .budget-row {
   display: grid;
-  grid-template-columns: 120px 1fr 80px;
+  grid-template-columns: minmax(80px, 120px) 1fr minmax(60px, 80px);
   align-items: center;
   gap: var(--space-4);
 }
@@ -198,7 +198,12 @@
 .action-check {
   flex-shrink: 0;
   margin-top: var(--space-1);
-  padding: 0;
+  padding: var(--space-1);
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 

@@ -127,6 +127,7 @@ export default function DebtOptimizerPage() {
             <button
               className={`strategy-btn ${method === 'avalanche' ? 'active' : ''}`}
               onClick={() => setMethod('avalanche')}
+              aria-pressed={method === 'avalanche'}
             >
               <span className="strategy-name">Avalanche</span>
               <span className="strategy-desc">Highest interest first (saves the most)</span>
@@ -134,6 +135,7 @@ export default function DebtOptimizerPage() {
             <button
               className={`strategy-btn ${method === 'snowball' ? 'active' : ''}`}
               onClick={() => setMethod('snowball')}
+              aria-pressed={method === 'snowball'}
             >
               <span className="strategy-name">Snowball</span>
               <span className="strategy-desc">Smallest balance first (quick wins)</span>
@@ -168,7 +170,7 @@ export default function DebtOptimizerPage() {
             <Card className="payoff-chart">
               <h3>Payoff Timeline ({method === 'avalanche' ? 'Avalanche' : 'Snowball'})</h3>
               <div className="chart-wrap">
-                <svg viewBox={`0 0 ${chartWidth} ${chartHeight + 30}`} className="bar-chart">
+                <svg viewBox={`0 0 ${chartWidth} ${chartHeight + 30}`} className="bar-chart" role="img" aria-label="Debt payoff timeline bar chart">
                   {timeline.map((point, i) => {
                     const barHeight = (point.totalBalance / maxBalance) * chartHeight
                     const x = i * (barWidth + barGap) + barGap / 2
