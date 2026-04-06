@@ -151,24 +151,25 @@
 
 .radio-btn {
   padding: var(--space-2) var(--space-4);
-  background: var(--bg-input);
-  border: 1px solid var(--border);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-md);
   color: var(--text-secondary);
   font-size: 0.875rem;
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
 }
 
 .radio-btn:hover {
-  border-color: var(--accent-light);
-  color: var(--text);
+  border-color: rgba(217, 119, 6, 0.4);
+  color: var(--warm-200);
+  background: rgba(217, 119, 6, 0.04);
 }
 
 .radio-btn.selected {
-  background: rgba(217, 119, 6, 0.15);
-  border-color: var(--accent);
-  color: var(--accent-light);
-  font-weight: 500;
+  background: rgba(217, 119, 6, 0.12);
+  border-color: var(--gold-500);
+  color: var(--gold-300);
+  font-weight: 600;
 }
 
 /* Debt cards */

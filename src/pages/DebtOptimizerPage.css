@@ -116,20 +116,27 @@
 .slider {
   flex: 1;
   appearance: none;
-  height: 6px;
-  background: var(--border);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-full);
   outline: none;
+  cursor: pointer;
 }
 
 .slider::-webkit-slider-thumb {
   appearance: none;
-  width: 20px;
-  height: 20px;
-  background: var(--gold-500);
+  width: 18px;
+  height: 18px;
+  background: var(--gold-400);
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(217, 119, 6, 0.4);
+  border: 2px solid var(--green-950);
+  box-shadow: 0 0 0 1px var(--gold-600);
+  transition: transform var(--transition-fast);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
 }
 
 .slider-value {
@@ -151,16 +158,23 @@
 .strategy-btn {
   padding: var(--space-5);
   background: var(--bg-card);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   text-align: left;
   color: var(--text-secondary);
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: none;
+}
+
+.strategy-btn:hover:not(.active) {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--bg-card-hover);
 }
 
 .strategy-btn.active {
   border-color: var(--gold-500);
   background: rgba(217, 119, 6, 0.08);
+  box-shadow: inset 0 1px 0 rgba(217, 119, 6, 0.12);
 }
 
 .strategy-name {

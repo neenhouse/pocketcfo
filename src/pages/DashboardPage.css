@@ -178,7 +178,13 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  cursor: default;
+}
+
+.action-item:hover:not(.completed) {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: var(--bg-card-hover);
 }
 
 .action-item.completed {
@@ -193,6 +199,12 @@
   flex-shrink: 0;
   margin-top: var(--space-1);
   padding: 0;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.action-check:hover {
+  transform: scale(1.15);
+  opacity: 0.85;
 }
 
 .action-body {

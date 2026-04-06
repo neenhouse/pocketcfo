@@ -183,7 +183,7 @@ export default function LandingPage() {
 
           <div className="features-grid">
             {features.map((f, i) => (
-              <Card key={i} hover glow>
+              <Card key={i} hover>
                 <div className="feature-icon">{f.icon}</div>
                 <h3 className="feature-title">{f.title}</h3>
                 <p className="feature-desc">{f.desc}</p>

@@ -8,15 +8,15 @@
 
 .card-hover:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(217, 119, 6, 0.35);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(217, 119, 6, 0.08);
 }
 
 .card-glow {
-  box-shadow: var(--shadow-gold);
+  box-shadow: 0 0 0 1px rgba(217, 119, 6, 0.12);
 }
 
 .card-glow:hover {
-  box-shadow: 0 0 40px rgba(217, 119, 6, 0.15);
+  box-shadow: 0 0 32px rgba(217, 119, 6, 0.12), 0 0 0 1px rgba(217, 119, 6, 0.2);
 }
