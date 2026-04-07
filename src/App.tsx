@@ -1,12 +1,14 @@
 import { Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Layout from './components/layout/Layout'
+import ErrorBoundary from './components/ErrorBoundary'
 
 const LandingPage = lazy(() => import('./pages/LandingPage'))
 const AssessmentPage = lazy(() => import('./pages/AssessmentPage'))
 const DashboardPage = lazy(() => import('./pages/DashboardPage'))
 const DebtOptimizerPage = lazy(() => import('./pages/DebtOptimizerPage'))
 const BenefitsFinderPage = lazy(() => import('./pages/BenefitsFinderPage'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 function Loading() {
   return (
@@ -47,16 +49,19 @@ function Loading() {
 
 export default function App() {
   return (
-    <Layout>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/assessment" element={<AssessmentPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/debt-optimizer" element={<DebtOptimizerPage />} />
-          <Route path="/benefits" element={<BenefitsFinderPage />} />
-        </Routes>
-      </Suspense>
-    </Layout>
+    <ErrorBoundary>
+      <Layout>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/assessment" element={<AssessmentPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/debt-optimizer" element={<DebtOptimizerPage />} />
+            <Route path="/benefits" element={<BenefitsFinderPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+      </Layout>
+    </ErrorBoundary>
   )
 }
