@@ -56,15 +56,12 @@ const advisorServices = [
 ]
 
 function AnimatedCounter({ target, duration = 2000, prefix = '', suffix = '' }: { target: number; duration?: number; prefix?: string; suffix?: string }) {
-  const [count, setCount] = useState(0)
-  const [started, setStarted] = useState(false)
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const [count, setCount] = useState(() => prefersReducedMotion ? target : 0)
+  const [started, setStarted] = useState(false)
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      setCount(target)
-      return
-    }
+    if (prefersReducedMotion) return
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setStarted(true) },
       { threshold: 0.3 }
@@ -72,7 +69,7 @@ function AnimatedCounter({ target, duration = 2000, prefix = '', suffix = '' }: 
     const el = document.getElementById('impact-section')
     if (el) observer.observe(el)
     return () => observer.disconnect()
-  }, [prefersReducedMotion, target])
+  }, [prefersReducedMotion])
 
   useEffect(() => {
     if (!started || prefersReducedMotion) return
