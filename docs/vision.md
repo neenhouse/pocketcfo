@@ -243,34 +243,42 @@ This principle is the foundation of both product safety and competitive strategy
 
 The path from "calculator" to "irreplaceable" has three phases:
 
-### Phase 1: Honest Calculator (now)
+### Phase 1: Honest Calculator + First Deployment (now)
+
 Ship a tool that does basic financial math correctly, finds real benefits, and respects privacy. Remove false claims. Be useful to one person today rather than impressive to no one.
 
-**Critical question for Phase 1**: Does anyone come back a second time? If not, the product is a novelty. The transition to Phase 2 depends on proving that users return — which means the first visit must produce something worth checking on later.
+Then find one institution willing to deploy it.
 
-### Phase 2: Persistent Advisor
-Add longitudinal tracking. Remember the user's situation across visits. Show progress over time. Alert to upcoming deadlines and opportunities. This is where the AI commoditization defense begins — ChatGPT can answer questions, but it can't track your debt payoff over 18 months.
+**Critical question for Phase 1**: Will one institution deploy this for their population, and does it measurably improve outcomes? If not, the product thesis is wrong — not the technology, but the go-to-market. Consumer retention (does anyone come back?) matters for credibility, but the existential question is institutional adoption.
 
-**What "persistent" actually means**: The product must transition from *snapshot* to *trajectory*. A calculator tells you "you'll be debt-free in 22 months." A persistent advisor tells you "you've paid down $1,200 in the last 3 months — you're 2 months ahead of schedule." The first is information. The second is a relationship.
+**What "deployment" means concretely**: A CDFI or employer links to a customized version of PocketCFO (branded for their organization, configured with their specific benefits/programs). They promote it to their population. PocketCFO measures aggregate engagement and outcomes. That measurement becomes the case study for the next deployment.
+
+### Phase 2: Institutional Platform
+
+The product transitions from "a tool institutions can link to" to "a platform institutions configure and deploy." This is where the moat begins.
 
 Concrete capabilities:
-- **Monthly check-in**: Return, update balances, see actual vs. projected progress
-- **Milestone recognition**: "You paid off your first debt. Here's what changes in your strategy."
-- **Calendar awareness**: "EITC filing window opens in 6 weeks. Based on your income, you qualify for ~$2,400."
-- **Drift detection**: "Your expenses increased $300/month since your last check-in. Here's where it went."
+- **White-label deployment**: custom branding, custom domain, institution-specific landing page
+- **Benefit configuration**: institution-specific programs (employer 401k details, local CDFI programs, state benefits)
+- **Impact dashboard**: aggregate, anonymized metrics — assessments completed, benefits surfaced, estimated dollar impact
+- **Audit trail**: every recommendation traceable to a specific rule and source
+- **Optional user persistence**: encrypted sync for users who opt in, enabling longitudinal tracking
 
-This phase is where the moat begins to form. Not from technology — from the accumulation of *your* data over *your* time.
+**Success metric**: 3+ institutional deployments with measured outcomes (benefit uptake, engagement, user satisfaction).
 
 ### Phase 3: Action Engine
+
 Move from "here's what to do" to "I'll do it." Pre-fill benefit applications. Connect to tax filing services. Automate savings transfers. Partner with financial institutions that serve low-income users.
 
-**The litmus test for Phase 3**: If PocketCFO disappears, does the user notice within a week? If yes, the product is embedded. If no, it was always optional. The goal is to become infrastructure in someone's financial life, not a tool they visit occasionally.
+**The litmus test for Phase 3**: If PocketCFO disappears from an institution's offering, does the institution notice within a week? If yes, the product is embedded infrastructure. If no, it was always optional.
 
 Concrete capabilities:
-- **Plaid integration**: Auto-import transactions and balances (opt-in, privacy-preserving)
-- **Benefit application pre-fill**: Generate completed forms for SNAP, Medicaid, LIHEAP
-- **Tax filing handoff**: Export data in a format that free tax filing tools (IRS Free File, VITA) can consume
-- **Savings automation**: Connect to bank APIs to automate micro-transfers based on the user's plan
+- **Benefit application pre-fill**: generate completed forms for SNAP, Medicaid, LIHEAP
+- **Tax filing handoff**: export data in a format that free tax filing tools (IRS Free File, VITA) can consume
+- **Plaid integration**: auto-import transactions and balances (opt-in, privacy-preserving)
+- **Calendar-aware nudges**: proactive alerts about filing deadlines, enrollment windows, benefit expirations — delivered through the institution's communication channels
+
+This phase is where the verified engine thesis fully materializes. The rules database, institutional integrations, and audit trail compound into a system that AI can call but cannot replicate.
 
 ## What Kills This (Death Scenarios)
 
