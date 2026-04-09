@@ -172,55 +172,39 @@ Financial tools for low-income users fail when they feel like sales funnels. But
 
 ## Weakest Assumptions (Honest Assessment)
 
-### Assumption 1: "Low-income users will find and use a web app"
-**Challenge**: The people who need this most are the least likely to Google "financial planning tool." Distribution is the hardest problem. SEO won't reach them. Social media is noisy. Financial literacy content online overwhelmingly targets middle-class and upper-middle-class audiences.
+### Assumption 1: "Institutions will pay for this"
+**This is the existential assumption.** If CDFIs, employers, and nonprofits don't see enough value to pay for white-label deployment, the entire sustainability thesis collapses.
 
-**Why this might be fatal**: Every consumer fintech that targeted low-income users has either pivoted upmarket (Robinhood), relied on predatory mechanics (payday loan apps), or stayed small (most credit unions' digital tools). The unit economics of acquiring and retaining a user who has $0 to spend on your product are brutal.
+**Why this might be fatal**: Enterprise sales cycles are 6-18 months. CDFIs operate on tight budgets. Employers have existing financial wellness vendors (Even, PayActiv, SmartDollar). Breaking into institutional procurement requires: a sales function, enterprise features (SSO, admin dashboards, usage reporting), compliance certifications, and data processing agreements. None of this can be bootstrapped by a solo developer.
 
-**Mitigation — the B2B thesis**: Don't acquire users. Acquire *distributors*.
+**Mitigation — the wedge**: Don't try to sell broadly. Find one institution willing to pilot. CDFIs are the best first target because (a) their mission is explicitly financial inclusion, (b) they're smaller and less bureaucratic than employers, (c) many have innovation budgets from CDFI Fund grants. Start with one CDFI. Prove the tool reduces financial stress calls, increases benefit uptake. Use that case study — with real numbers — to approach the next institution.
 
-The institutions already serving low-income populations are:
-- **Employers** (Walmart, Amazon, McDonald's — all have financial wellness programs for hourly workers)
-- **Community Development Financial Institutions (CDFIs)** — 1,300+ in the US, explicitly serving underbanked communities
-- **Nonprofit financial counseling orgs** (NFCC members, United Way Financial Stability programs)
-- **Government agencies** — IRS VITA program, state benefits offices, public libraries
-- **Healthcare systems** — social determinants of health screening increasingly includes financial stress
+**Alternative path**: If institutional sales prove too slow, consider a nonprofit structure with grant funding. The tool's mission aligns with major foundation priorities (JPMorgan Chase Foundation, Robin Hood Foundation, CFPB financial inclusion programs). A 501(c)(3) with grant funding is a valid alternative to B2B sales.
 
-PocketCFO becomes a *tool these institutions deploy*, not a consumer product that markets itself. The institution gets a free resource for their population. PocketCFO gets distribution without acquisition cost.
+### Assumption 2: "Low-income users will engage with a web app (even when deployed by institutions)"
+**Challenge**: Distribution through institutions solves the "how do people find this" problem. It doesn't solve the "how do people use this" problem. The populations who need this most have the least time, the most decision fatigue, and the most reason to distrust financial tools.
 
-**The wedge**: Start with one CDFI or one employer's financial wellness program. Prove the tool reduces financial stress calls / increases benefit uptake. Use that case study to expand. This is a B2B2C playbook, not a consumer growth playbook.
+**Mitigation**: The tool must deliver value in under 2 minutes on a first visit. The benefit-finding flow — "enter your income and household size, see what you're leaving on the table" — is the highest-value, lowest-friction entry point. Lead with that, not a 5-step financial assessment. The institution's endorsement reduces trust barriers but doesn't eliminate them.
 
-### Assumption 2: "Rule-based calculations stay accurate"
+### Assumption 3: "Rule-based calculations stay accurate"
 **Challenge**: Tax laws change yearly. Benefit thresholds shift. State-level programs vary wildly. Hardcoded numbers decay.
-**Mitigation**: This is a real engineering problem. The system needs a data layer that can be updated independently of the application. Tax rules, benefit thresholds, and eligibility criteria must be configuration, not code. Partner with organizations (like Code for America, Benefits.gov) that already maintain these datasets.
 
-### Assumption 3: "Privacy-first and free forever is sustainable"
-**Challenge**: No data collection means no data monetization. No accounts mean no engagement metrics. No revenue means no team. "Free forever" is easy to promise and hard to keep.
+**Mitigation**: This is a real engineering problem. The system needs a data layer that can be updated independently of the application. Tax rules, benefit thresholds, and eligibility criteria must be configuration, not code. Partnership with organizations that already maintain these datasets (Code for America, Benefits.gov) is eventually necessary.
 
-**The deeper tension**: "Privacy-first" and "persistent advisor" are in conflict. Phase 2 requires remembering the user across visits. localStorage is fragile (cleared by browser, lost when switching devices). Real persistence requires either accounts or cloud sync — both of which break the "no sign-up, no data collection" promise.
+### Assumption 4: "Privacy-first and free forever is sustainable"
+**Challenge**: No data collection means no data monetization. No accounts mean no engagement metrics. No revenue from users means all revenue must come from institutions or grants.
+
+**The deeper tension**: "Privacy-first" and "institutional deployment" have a nuance: institutions want aggregate usage metrics and impact data. This requires some form of analytics, even if anonymized and privacy-preserving.
 
 **Resolution — privacy is a spectrum, not a binary**:
-- **Tier 0 (default)**: No account, localStorage only. Full functionality, fragile persistence. This is the current model and it must always work.
-- **Tier 1 (opt-in)**: Anonymous encrypted sync. User gets a recovery phrase (like a crypto wallet). Data is encrypted client-side, stored in a way that the server cannot read it. No email, no identity, no account — just a key. This preserves privacy while enabling cross-device sync.
-- **Tier 2 (opt-in)**: Account with email. Enables push notifications (deadline reminders, benefit alerts), data backup, and longitudinal tracking. This is where the "persistent advisor" value lives.
+- **Tier 0 (default)**: No account, localStorage only. Full functionality, fragile persistence. This always works.
+- **Tier 1 (institutional deployment)**: Anonymous usage analytics for the deploying institution. No PII. Aggregate metrics only (number of assessments, benefit categories surfaced, debt strategies generated). The institution sees population-level data, never individual data.
+- **Tier 2 (opt-in by user)**: Account with encrypted sync for longitudinal tracking. Enables progress tracking, deadline reminders, and the persistent advisor features. Optional. The free, private, no-account version always works.
 
-The privacy promise becomes: *"Your data is yours. We never sell it. We never read it without your permission. The free, private, no-account version always works."* That's different from "we never collect data" — and it's more honest about what Phase 2 requires.
+### Assumption 5: "The impact metrics shown today are credible"
+**Challenge**: The landing page claims "$12.4M saved for users" and "84,000 strategies generated." These are fabricated. Trust is the product. Fabricated metrics destroy the product.
 
-**Sustainability via the B2B model**: Institutions pay for:
-- **Deployment licensing** — white-labeled PocketCFO for their population ($X/user/year)
-- **Aggregate analytics dashboard** — anonymized, privacy-preserving insights on benefit uptake rates, common debt patterns, financial stress indicators (requires consent + differential privacy)
-- **Custom benefit integration** — employer-specific benefits (401k details, FSA, tuition reimbursement) baked into the tool
-- **Impact reporting** — quantified outcomes for grant applications and CSR reports
-
-This is the **PBS model**: free for viewers, funded by institutions. The difference from advertising-supported models is that the funder's interests are *aligned* with the user's interests (the employer/nonprofit *wants* their people to be financially stable).
-
-### Assumption 4: "This is meaningfully different from a spreadsheet"
-**Challenge**: Today, PocketCFO is essentially a guided form that produces calculations a spreadsheet could do. The benefits finder checks eligibility against static thresholds. The debt optimizer runs standard amortization math.
-**Mitigation**: This is accurate *today*. The current product is a starting point, not a destination. The value gap between "calculator" and "proactive assistant" is the entire roadmap. If PocketCFO remains a calculator, it has no future. It must become something that acts on your behalf.
-
-### Assumption 5: "The impact metrics are credible"
-**Challenge**: The landing page claims "$12.4M saved for users" and "84,000 strategies generated." These are not real numbers for a new product. Fabricated social proof undermines the trust that the entire value proposition depends on.
-**Mitigation**: Remove fabricated metrics immediately. Replace with verifiable claims or real user stories. Trust is the product. Lying about impact destroys the product.
+**Mitigation**: Remove fabricated metrics immediately. Replace with verifiable methodology claims ("calculated using IRS Publication 596 thresholds and federal benefit eligibility rules") or remove the section entirely until real deployment data exists.
 
 ## The Role of AI (Honest Assessment)
 
