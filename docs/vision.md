@@ -78,23 +78,43 @@ This isn't just a safety principle. It's the entire competitive strategy.
 
 ## Business Model
 
-"Free forever" is a user promise, not a business model. PocketCFO must be sustainable without charging the people it serves.
+"Free forever" is a user promise, not a business model. PocketCFO must be sustainable without charging the people it serves — and without compromising their interests to generate revenue.
 
-### Revenue paths (in priority order):
+### Revenue model: Institutional deployment licensing
 
-1. **Affiliate partnerships** — When PocketCFO recommends a high-yield savings account, a no-fee checking account, or free tax filing, those recommendations can carry affiliate revenue. The key constraint: *never recommend a product that isn't the best option for the user.* Revenue follows trust, not the other way around.
+The only revenue path where the buyer's interests align with the user's interests. Institutions serving low-income populations pay for:
 
-2. **B2B licensing** — Employers, nonprofits, community organizations, and government agencies who serve low-income populations need tools like this. White-label PocketCFO as an employee benefit, a nonprofit resource, or a government service. This is the most promising path because it converts "free for users" into "paid by institutions."
+1. **White-labeled deployment** — PocketCFO customized for their population, with their branding, their programs, their geography. Per-institution annual fee, not per-user. This aligns incentives: the institution wants maximum usage, PocketCFO wants maximum usage, the user pays nothing.
 
-3. **Anonymized insights** — Aggregate, anonymized data on benefit uptake, debt patterns, and financial behavior is valuable to policymakers, researchers, and financial institutions. This requires scale and rigorous privacy guarantees.
+2. **Custom benefit integration** — employer-specific benefits (401k match details, FSA, tuition reimbursement, EAP programs) and local programs baked into the tool.
 
-4. **Premium tier (cautiously)** — If a premium tier ever exists, it must be for *convenience* features (bank sync, automated filing, human advisor access) — never for *essential* features. The free tier must always be complete.
+3. **Aggregate impact dashboard** — anonymized, privacy-preserving metrics on benefit uptake rates, debt reduction progress, and financial stress indicators. Institutions need this for grant applications, CSR reports, and internal measurement.
+
+4. **State-specific rules** — benefit eligibility, program deadlines, and thresholds for the institution's geographic coverage area.
+
+### Sustainability for the public instance
+
+The consumer app (pocketcfo.com) is a public good. It is sustained by:
+- Foundation grants (Robin Hood Foundation, JPMorgan Chase Foundation, CFPB financial inclusion programs)
+- Code for America partnership
+- A percentage of institutional licensing revenue funding the public instance
+
+This is the PBS model, taken seriously. Free for viewers. Funded by institutions whose interests are *aligned* with viewers' interests. The employer/nonprofit/CDFI *wants* their people to be financially stable. That alignment is the engine.
+
+### Revenue paths eliminated (and why)
+
+**Affiliate partnerships** — The constraint "never recommend a product that isn't the best option" is economically incompatible with affiliate revenue. Products that pay highest commissions need the most help getting customers, which correlates with being worse for the user. PocketCFO can't optimize for commissions without destroying its core asset: trust.
+
+**Anonymized data insights** — Requires massive scale to be valuable. The privacy-first positioning makes data collection politically fraught even with differential privacy. Not relevant at current or near-future scale.
+
+**Premium tier** — Creates free/paid tension that undermines the mission. The line between "convenience" and "essential" is impossible to hold. Eliminated.
 
 ### What we will never do:
 - Sell user data
 - Recommend products for commission over user benefit
 - Gate essential financial tools behind payment
 - Show ads for predatory financial products
+- Deploy a tool whose outputs can't be audited
 
 ## Differentiation — What Makes This Irreplaceable
 
