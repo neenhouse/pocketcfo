@@ -308,6 +308,10 @@ Tax laws change yearly, benefit thresholds shift, state programs evolve. If the 
 
 ## Who This Is For
 
-PocketCFO is for the person working two jobs who doesn't have time to research tax credits. The single parent who doesn't know they qualify for $2,400 in EITC. The recent graduate drowning in student loans who can't afford a financial advisor. The family spending $200/month more than they need to on debt interest because nobody told them about the avalanche method.
+PocketCFO is built for the institutions that serve low-income populations — CDFIs, employers, nonprofits, government agencies — so they can deploy verified financial guidance at scale.
 
-It is not for people with investment portfolios. It is not for people who already have financial advisors. It is not a replacement for comprehensive financial planning. It is the thing that exists in the gap between "can't afford advice" and "desperately needs it."
+The people it ultimately serves: the person working two jobs who doesn't have time to research tax credits. The single parent who doesn't know they qualify for $2,400 in EITC. The recent graduate drowning in student loans who can't afford a financial advisor. The family spending $200/month more than they need to on debt interest because nobody told them about the avalanche method.
+
+These people won't find PocketCFO by searching for "financial planning tool." They'll find it because their employer, their credit union, or their community organization put it in front of them. The institution is the distribution channel. The person is the reason it exists.
+
+It is not for people with investment portfolios. It is not for people who already have financial advisors. It is not a replacement for comprehensive financial planning. It is the thing that exists in the gap between "can't afford advice" and "desperately needs it" — delivered through the institutions already in that gap.
