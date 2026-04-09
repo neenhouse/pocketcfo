@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import './LandingPage.css'
@@ -54,42 +53,6 @@ const advisorServices = [
   'Build a personalized savings plan',
   'Project your path to financial freedom',
 ]
-
-function AnimatedCounter({ target, duration = 2000, prefix = '', suffix = '' }: { target: number; duration?: number; prefix?: string; suffix?: string }) {
-  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const [count, setCount] = useState(() => prefersReducedMotion ? target : 0)
-  const [started, setStarted] = useState(false)
-
-  useEffect(() => {
-    if (prefersReducedMotion) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStarted(true) },
-      { threshold: 0.3 }
-    )
-    const el = document.getElementById('impact-section')
-    if (el) observer.observe(el)
-    return () => observer.disconnect()
-  }, [prefersReducedMotion])
-
-  useEffect(() => {
-    if (!started || prefersReducedMotion) return
-    const steps = 60
-    const increment = target / steps
-    let current = 0
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= target) {
-        setCount(target)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, duration / steps)
-    return () => clearInterval(timer)
-  }, [started, target, duration, prefersReducedMotion])
-
-  return <span>{prefix}{count.toLocaleString()}{suffix}</span>
-}
 
 export default function LandingPage() {
   return (
@@ -208,26 +171,26 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Impact */}
-      <section id="impact" className="impact-section">
-        <div className="container" id="impact-section">
-          <h2 className="section-title">Real Impact. Real People.</h2>
+      {/* Methodology */}
+      <section id="methodology" className="impact-section">
+        <div className="container">
+          <h2 className="section-title">Built on Real Rules. Not Guesswork.</h2>
           <div className="impact-grid">
             <div className="impact-stat">
-              <div className="impact-number"><AnimatedCounter target={12400000} prefix="$" /></div>
-              <div className="impact-label">Saved for users</div>
+              <div className="impact-number">12+</div>
+              <div className="impact-label">Federal programs and tax credits checked</div>
             </div>
             <div className="impact-stat">
-              <div className="impact-number"><AnimatedCounter target={84000} /></div>
-              <div className="impact-label">Strategies generated</div>
+              <div className="impact-number">IRS</div>
+              <div className="impact-label">Thresholds from official IRS publications</div>
             </div>
             <div className="impact-stat">
-              <div className="impact-number"><AnimatedCounter target={2100000} prefix="$" /></div>
-              <div className="impact-label">In unclaimed benefits found</div>
+              <div className="impact-number">3 min</div>
+              <div className="impact-label">To see what you qualify for</div>
             </div>
             <div className="impact-stat">
-              <div className="impact-number"><AnimatedCounter target={18} suffix=" months" /></div>
-              <div className="impact-label">Average time to debt-free</div>
+              <div className="impact-number">0</div>
+              <div className="impact-label">Data collected. Everything stays on your device</div>
             </div>
           </div>
         </div>

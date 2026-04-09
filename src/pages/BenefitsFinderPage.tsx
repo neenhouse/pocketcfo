@@ -5,6 +5,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage'
 import { getMonthlyIncome } from '../lib/strategy'
 import type { FinancialProfile, Benefit } from '../lib/types'
 import { DEFAULT_PROFILE } from '../lib/types'
+import { RULES_TAX_YEAR, EITC, CHILD_TAX_CREDIT, SNAP, HEALTHCARE, LIHEAP, WIC, EMPLOYER_401K, EMPLOYER_FSA, SAVERS_CREDIT, STUDENT_LOAN_DEDUCTION, FREE_TAX_FILING } from '../lib/rules'
 import './BenefitsFinderPage.css'
 
 function getBenefits(profile: FinancialProfile): Benefit[] {
@@ -12,15 +13,19 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
   const benefits: Benefit[] = []
 
   // EITC
+  const eitcLimit = profile.dependents > 0 ? EITC.incomeLimit.withDependents : EITC.incomeLimit.withoutDependents
+  const eitcMax = profile.dependents > 0 ? EITC.maxCredit.withDependents : EITC.maxCredit.withoutDependents
+  const eitcRate = profile.dependents > 0 ? EITC.estimateRate.withDependents : EITC.estimateRate.withoutDependents
   benefits.push({
     id: 'eitc',
     name: 'Earned Income Tax Credit (EITC)',
     description: 'A refundable tax credit for low-to-moderate income workers. Even if you owe no tax, you can get this as a refund.',
-    estimatedValue: profile.dependents > 0 ? Math.min(7430, Math.round(annualIncome * 0.15)) : Math.min(600, Math.round(annualIncome * 0.07)),
+    estimatedValue: Math.min(eitcMax, Math.round(annualIncome * eitcRate)),
     category: 'tax',
-    eligible: annualIncome > 0 && annualIncome < (profile.dependents > 0 ? 63398 : 17640),
+    eligible: annualIncome > 0 && annualIncome < eitcLimit,
     claimed: false,
-    requirements: ['Must have earned income', 'Must file a tax return', `Income under $${(profile.dependents > 0 ? 63398 : 17640).toLocaleString()}`],
+    requirements: ['Must have earned income', 'Must file a tax return', `Income under $${eitcLimit.toLocaleString()}`],
+    source: EITC.source,
   })
 
   // Child Tax Credit
@@ -28,12 +33,13 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
     benefits.push({
       id: 'ctc',
       name: 'Child Tax Credit',
-      description: `Up to $2,000 per qualifying child under 17. Partially refundable even if you owe no tax.`,
-      estimatedValue: profile.dependents * 2000,
+      description: `Up to $${CHILD_TAX_CREDIT.perChild.toLocaleString()} per qualifying child under 17. Partially refundable even if you owe no tax.`,
+      estimatedValue: profile.dependents * CHILD_TAX_CREDIT.perChild,
       category: 'tax',
-      eligible: annualIncome < 200000,
+      eligible: annualIncome < CHILD_TAX_CREDIT.incomeLimit,
       claimed: false,
-      requirements: ['Children under 17', 'Must file a tax return', 'Income under $200,000'],
+      requirements: ['Children under 17', 'Must file a tax return', `Income under $${CHILD_TAX_CREDIT.incomeLimit.toLocaleString()}`],
+      source: CHILD_TAX_CREDIT.source,
     })
   }
 
@@ -42,11 +48,12 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
     id: 'snap',
     name: 'SNAP (Food Stamps)',
     description: 'Monthly food assistance based on household size and income. Can be loaded onto an EBT card and used at grocery stores.',
-    estimatedValue: (1 + profile.dependents) * 200 * 12,
+    estimatedValue: (1 + profile.dependents) * SNAP.perPersonMonthly * 12,
     category: 'government',
-    eligible: annualIncome < 40000 * (1 + profile.dependents * 0.3),
+    eligible: annualIncome < SNAP.baseIncomeLimit * (1 + profile.dependents * SNAP.dependentFactor),
     claimed: false,
     requirements: ['Meet income guidelines', 'Apply through your state', 'Must be a US citizen or qualified non-citizen'],
+    source: SNAP.source,
   })
 
   // Medicaid/ACA
@@ -54,11 +61,12 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
     id: 'healthcare',
     name: 'Medicaid or ACA Subsidies',
     description: 'Free or low-cost health insurance. Medicaid for very low income, ACA marketplace subsidies for moderate income.',
-    estimatedValue: annualIncome < 20000 ? 6000 : 3600,
+    estimatedValue: annualIncome < HEALTHCARE.medicaidIncomeLimit ? HEALTHCARE.medicaidAnnualValue : HEALTHCARE.acaAnnualValue,
     category: 'government',
-    eligible: annualIncome < 60000,
+    eligible: annualIncome < HEALTHCARE.acaIncomeLimit,
     claimed: false,
     requirements: ['Income-based eligibility', 'Apply through healthcare.gov or your state exchange'],
+    source: HEALTHCARE.source,
   })
 
   // LIHEAP
@@ -66,11 +74,12 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
     id: 'liheap',
     name: 'LIHEAP (Energy Assistance)',
     description: 'Helps pay heating and cooling bills. One-time payment or credit applied directly to your utility account.',
-    estimatedValue: 800,
+    estimatedValue: LIHEAP.estimatedValue,
     category: 'government',
-    eligible: annualIncome < 35000,
+    eligible: annualIncome < LIHEAP.incomeLimit,
     claimed: false,
     requirements: ['Low income household', 'Apply through local community action agency', 'Seasonal availability'],
+    source: LIHEAP.source,
   })
 
   // WIC
@@ -79,11 +88,12 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
       id: 'wic',
       name: 'WIC (Women, Infants & Children)',
       description: 'Nutrition program for pregnant women, new mothers, and children under 5. Covers milk, eggs, bread, cereal, and more.',
-      estimatedValue: 100 * 12 * Math.min(profile.dependents, 3),
+      estimatedValue: WIC.monthlyPerChild * 12 * Math.min(profile.dependents, WIC.maxChildren),
       category: 'government',
-      eligible: annualIncome < 52000,
+      eligible: annualIncome < WIC.incomeLimit,
       claimed: false,
       requirements: ['Pregnant, breastfeeding, or children under 5', 'Meet income guidelines', 'Apply at local WIC office'],
+      source: WIC.source,
     })
   }
 
@@ -93,35 +103,39 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
       id: '401k',
       name: 'Employer 401(k) Match',
       description: "Your employer may match a percentage of your retirement contributions. This is literally free money — don't leave it on the table.",
-      estimatedValue: Math.round(annualIncome * 0.03),
+      estimatedValue: Math.round(annualIncome * EMPLOYER_401K.estimatedMatchRate),
       category: 'employer',
       eligible: true,
       claimed: false,
       requirements: ['Check with HR for match percentage', 'Typically must contribute at least 3-6% of pay'],
+      source: EMPLOYER_401K.source,
     })
 
     benefits.push({
       id: 'fsa',
       name: 'Flexible Spending Account (FSA)',
       description: 'Pre-tax dollars for medical expenses or dependent care. Saves you 22-37% on these costs.',
-      estimatedValue: 600,
+      estimatedValue: EMPLOYER_FSA.estimatedAnnualValue,
       category: 'employer',
       eligible: true,
       claimed: false,
       requirements: ['Available during open enrollment', 'Must estimate annual expenses', 'Use-it-or-lose-it (mostly)'],
+      source: EMPLOYER_FSA.source,
     })
   }
 
   // Saver's Credit
+  const saversLimit = profile.filingStatus === 'married' ? SAVERS_CREDIT.incomeLimit.married : SAVERS_CREDIT.incomeLimit.single
   benefits.push({
     id: 'savers-credit',
     name: "Saver's Credit",
-    description: 'Tax credit for low-income workers who contribute to retirement accounts (401k, IRA). Up to $1,000 credit.',
-    estimatedValue: Math.min(1000, Math.round(annualIncome * 0.05)),
+    description: `Tax credit for low-income workers who contribute to retirement accounts (401k, IRA). Up to $${SAVERS_CREDIT.maxCredit.toLocaleString()} credit.`,
+    estimatedValue: Math.min(SAVERS_CREDIT.maxCredit, Math.round(annualIncome * SAVERS_CREDIT.estimateRate)),
     category: 'tax',
-    eligible: annualIncome < (profile.filingStatus === 'married' ? 73000 : 36500),
+    eligible: annualIncome < saversLimit,
     claimed: false,
-    requirements: ['Contribute to 401(k) or IRA', 'Must be 18+', `Income under $${(profile.filingStatus === 'married' ? 73000 : 36500).toLocaleString()}`],
+    requirements: ['Contribute to 401(k) or IRA', 'Must be 18+', `Income under $${saversLimit.toLocaleString()}`],
+    source: SAVERS_CREDIT.source,
   })
 
   // Student loan deduction
@@ -129,12 +143,13 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
     benefits.push({
       id: 'student-loan-deduction',
       name: 'Student Loan Interest Deduction',
-      description: 'Deduct up to $2,500 of student loan interest from your taxable income. No need to itemize.',
-      estimatedValue: Math.min(550, Math.round(profile.debts.filter(d => d.type === 'student_loan').reduce((a, d) => a + d.balance * d.interestRate / 100, 0) * 0.22)),
+      description: `Deduct up to $${STUDENT_LOAN_DEDUCTION.maxDeduction.toLocaleString()} of student loan interest from your taxable income. No need to itemize.`,
+      estimatedValue: Math.min(STUDENT_LOAN_DEDUCTION.maxTaxSavings, Math.round(profile.debts.filter(d => d.type === 'student_loan').reduce((a, d) => a + d.balance * d.interestRate / 100, 0) * STUDENT_LOAN_DEDUCTION.taxRate)),
       category: 'tax',
-      eligible: annualIncome < 90000,
+      eligible: annualIncome < STUDENT_LOAN_DEDUCTION.incomeLimit,
       claimed: false,
-      requirements: ['Paid interest on qualified student loans', 'Income under $90,000 (single)'],
+      requirements: ['Paid interest on qualified student loans', `Income under $${STUDENT_LOAN_DEDUCTION.incomeLimit.toLocaleString()} (single)`],
+      source: STUDENT_LOAN_DEDUCTION.source,
     })
   }
 
@@ -142,12 +157,13 @@ function getBenefits(profile: FinancialProfile): Benefit[] {
   benefits.push({
     id: 'free-filing',
     name: 'Free Tax Filing (IRS Free File)',
-    description: 'File your federal taxes for free if your income is under $84,000. Many states offer free filing too.',
-    estimatedValue: 150,
+    description: `File your federal taxes for free if your income is under $${FREE_TAX_FILING.incomeLimit.toLocaleString()}. Many states offer free filing too.`,
+    estimatedValue: FREE_TAX_FILING.estimatedSavings,
     category: 'tax',
-    eligible: annualIncome < 84000,
+    eligible: annualIncome < FREE_TAX_FILING.incomeLimit,
     claimed: false,
-    requirements: ['Income under $84,000', 'Use IRS.gov/freefile', 'Available January through October'],
+    requirements: [`Income under $${FREE_TAX_FILING.incomeLimit.toLocaleString()}`, 'Use IRS.gov/freefile', 'Available January through October'],
+    source: FREE_TAX_FILING.source,
   })
 
   return benefits
@@ -201,6 +217,7 @@ export default function BenefitsFinderPage() {
       <div className="benefits-header">
         <h1>Benefits Finder</h1>
         <p>Billions in benefits go unclaimed every year. Let's make sure you're not leaving money on the table.</p>
+        <p className="benefits-tax-year">Thresholds current as of Tax Year {RULES_TAX_YEAR}. All eligibility estimates based on federal guidelines.</p>
       </div>
 
       {/* Summary */}
@@ -267,6 +284,8 @@ export default function BenefitsFinderPage() {
                 ))}
               </ul>
             </div>
+
+            <div className="benefit-source">Source: {benefit.source}</div>
 
             {benefit.eligible && (
               <button

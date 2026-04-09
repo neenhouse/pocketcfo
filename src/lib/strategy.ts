@@ -1,15 +1,16 @@
 import type { FinancialProfile, Strategy, ActionItem, Debt } from './types'
+import { EITC, CHILD_TAX_CREDIT, STUDENT_LOAN_DEDUCTION, SNAP, HEALTHCARE, EMPLOYER_401K, STRATEGY } from './rules'
 
 export function generateStrategy(profile: FinancialProfile): Strategy {
   const monthlyIncome = getMonthlyIncome(profile)
   const totalExpenses = Object.values(profile.monthlyExpenses).reduce((a, b) => a + b, 0)
   const totalMinPayments = profile.debts.reduce((a, d) => a + d.minimumPayment, 0)
   const monthlyFree = monthlyIncome - totalExpenses - totalMinPayments
-  const savingsPotential = Math.max(0, monthlyFree * 0.7)
+  const savingsPotential = Math.max(0, monthlyFree * STRATEGY.savingsPotentialRate)
 
   const totalDebt = profile.debts.reduce((a, d) => a + d.balance, 0)
   const debtFreeMonths = totalDebt > 0
-    ? estimateDebtFreeMonths(profile.debts, Math.max(50, monthlyFree * 0.3 + totalMinPayments))
+    ? estimateDebtFreeMonths(profile.debts, Math.max(50, monthlyFree * STRATEGY.debtPaymentRate + totalMinPayments))
     : 0
 
   const debtFreeDate = new Date()
@@ -67,18 +68,18 @@ function estimateDebtFreeMonths(debts: Debt[], totalMonthlyPayment: number): num
 
 function estimateTaxSavings(profile: FinancialProfile): number {
   let savings = 0
-  // EITC estimate
   const annualIncome = getMonthlyIncome(profile) * 12
-  if (annualIncome < 60000) {
-    if (profile.dependents > 0) savings += Math.min(3000, annualIncome * 0.15)
-    else savings += Math.min(600, annualIncome * 0.07)
+  // EITC estimate
+  if (annualIncome < EITC.strategyIncomeLimit) {
+    if (profile.dependents > 0) savings += Math.min(EITC.maxCredit.withDependents, annualIncome * EITC.estimateRate.withDependents)
+    else savings += Math.min(EITC.maxCredit.withoutDependents, annualIncome * EITC.estimateRate.withoutDependents)
   }
   // Student loan interest deduction
   if (profile.debts.some(d => d.type === 'student_loan')) {
-    savings += Math.min(2500, profile.debts.filter(d => d.type === 'student_loan').reduce((a, d) => a + d.balance * d.interestRate / 100, 0)) * 0.22
+    savings += Math.min(STUDENT_LOAN_DEDUCTION.maxDeduction, profile.debts.filter(d => d.type === 'student_loan').reduce((a, d) => a + d.balance * d.interestRate / 100, 0)) * STUDENT_LOAN_DEDUCTION.taxRate
   }
   // Child tax credit
-  savings += profile.dependents * 2000 * 0.5
+  savings += profile.dependents * CHILD_TAX_CREDIT.perChild * CHILD_TAX_CREDIT.strategyFactor
   return savings
 }
 
@@ -86,11 +87,11 @@ function estimateBenefitsValue(profile: FinancialProfile): number {
   let value = 0
   const annualIncome = getMonthlyIncome(profile) * 12
   // SNAP estimate
-  if (annualIncome < 40000 && profile.dependents > 0) value += 200 * 12
+  if (annualIncome < SNAP.baseIncomeLimit && profile.dependents > 0) value += SNAP.perPersonMonthly * 12
   // Medicaid/ACA subsidy
-  if (annualIncome < 50000) value += 300 * 12
+  if (annualIncome < HEALTHCARE.strategyIncomeLimit) value += HEALTHCARE.strategyMonthlyValue * 12
   // Employer benefits (401k match)
-  if (profile.hasEmployerBenefits) value += annualIncome * 0.03
+  if (profile.hasEmployerBenefits) value += annualIncome * EMPLOYER_401K.estimatedMatchRate
   return value
 }
 
@@ -101,15 +102,15 @@ function generateActionItems(profile: FinancialProfile, monthlyFree: number): Ac
   // Emergency fund
   items.push({
     id: 'emergency-fund',
-    title: 'Build a $1,000 Emergency Fund',
-    description: 'Before attacking debt, set aside $1,000. This prevents new debt from unexpected expenses.',
+    title: `Build a $${STRATEGY.emergencyFundTarget.toLocaleString()} Emergency Fund`,
+    description: `Before attacking debt, set aside $${STRATEGY.emergencyFundTarget.toLocaleString()}. This prevents new debt from unexpected expenses.`,
     impact: 'high',
     category: 'savings',
     completed: false,
   })
 
   // High interest debt
-  const highInterest = profile.debts.filter(d => d.interestRate > 15)
+  const highInterest = profile.debts.filter(d => d.interestRate > STRATEGY.highInterestThreshold)
   if (highInterest.length > 0) {
     items.push({
       id: 'high-interest-debt',
@@ -122,11 +123,12 @@ function generateActionItems(profile: FinancialProfile, monthlyFree: number): Ac
   }
 
   // Tax optimization
-  if (annualIncome < 60000) {
+  if (annualIncome < EITC.strategyIncomeLimit) {
+    const maxEitc = profile.dependents > 0 ? EITC.maxCredit.withDependents.toLocaleString() : EITC.maxCredit.withoutDependents.toLocaleString()
     items.push({
       id: 'eitc',
       title: 'Claim the Earned Income Tax Credit',
-      description: `You may qualify for up to $${profile.dependents > 0 ? '7,430' : '600'} back. File taxes even if you don't owe — this is free money.`,
+      description: `You may qualify for up to $${maxEitc} back. File taxes even if you don't owe — this is free money.`,
       impact: 'high',
       category: 'tax',
       completed: false,
@@ -134,7 +136,7 @@ function generateActionItems(profile: FinancialProfile, monthlyFree: number): Ac
   }
 
   // Benefits
-  if (annualIncome < 50000 && profile.dependents > 0) {
+  if (annualIncome < HEALTHCARE.strategyIncomeLimit && profile.dependents > 0) {
     items.push({
       id: 'snap',
       title: 'Check SNAP/Food Benefits Eligibility',
@@ -158,10 +160,10 @@ function generateActionItems(profile: FinancialProfile, monthlyFree: number): Ac
   }
 
   // Savings automation
-  if (monthlyFree > 50) {
+  if (monthlyFree > STRATEGY.minFreeForAutoSavings) {
     items.push({
       id: 'automate-savings',
-      title: `Automate $${Math.min(200, Math.round(monthlyFree * 0.2))}/month to Savings`,
+      title: `Automate $${Math.min(STRATEGY.maxAutoSavings, Math.round(monthlyFree * STRATEGY.autoSavingsRate))}/month to Savings`,
       description: 'Set up auto-transfer the day after payday. Money you don\'t see is money you don\'t spend.',
       impact: 'medium',
       category: 'savings',

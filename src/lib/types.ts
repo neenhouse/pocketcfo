@@ -62,6 +62,7 @@ export interface Benefit {
   eligible: boolean
   claimed: boolean
   requirements: string[]
+  source: string
 }
 
 export const DEFAULT_PROFILE: FinancialProfile = {
