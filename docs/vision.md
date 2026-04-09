@@ -282,25 +282,29 @@ This phase is where the verified engine thesis fully materializes. The rules dat
 
 ## What Kills This (Death Scenarios)
 
-### 1. Google/Apple ships it as a built-in feature
-If Google adds "financial health" to Google Pay or Apple adds benefit-finding to Wallet, PocketCFO is instantly redundant. They have distribution, trust, and bank integrations already.
-**Survival condition**: Be embedded in institutional workflows (B2B) before this happens. Google/Apple won't build custom deployments for CDFIs.
+### 1. No institutional buyers (CRITICAL)
+If CDFIs and employers don't see enough value to pay for deployment, the sustainability thesis collapses. This is the single most important risk.
+**Survival condition**: Get one deployment live before building anything else. One case study with real numbers opens the door to the next. If three institutions say no after seeing a working demo with real outcomes, the B2B thesis is wrong and the model must change.
 
-### 2. Regulation blocks the advice
-Financial advice is regulated. If PocketCFO's recommendations are classified as "financial advice" rather than "financial education," it may need licensing, disclaimers, or compliance infrastructure that a small project can't support.
-**Survival condition**: Stay on the "education and tools" side of the line. Show calculations and options. Never say "you should" — say "here's what the math shows." Consult a fintech attorney before Phase 3.
+### 2. A well-funded nonprofit builds this first
+Code for America, Khan Academy, or a major foundation decides to build exactly this tool with a $5M grant and a team of 20. They have more credibility, resources, and institutional relationships.
+**Survival condition**: Speed and specificity. Be deployed at one institution before they finish their RFP process. The advantage of being small is deploying in weeks, not years. If this happens, consider: is partnership better than competition?
 
-### 3. Nobody comes back
-If the product remains a one-time calculator, it has no business model, no moat, and no impact. Retention is the single most important metric.
-**Survival condition**: Phase 2 (persistent advisor) must ship before the product's novelty wears off. The return visit is everything.
+### 3. Google/Apple ships it as a built-in
+If Google adds "financial health" to Google Pay or Apple adds benefit-finding to Wallet, the consumer app is instantly redundant. Under the infrastructure framing, this is less threatening — Google/Apple won't build custom CDFI deployments.
+**Survival condition**: Be embedded in institutional workflows before this happens. The consumer app is expendable. The institutional deployments are not.
 
-### 4. The free model attracts no institutional buyers
-If CDFIs, employers, and nonprofits don't see enough value to pay for white-label deployment, the sustainability thesis collapses.
-**Survival condition**: Build one compelling case study with one institution. Prove quantified impact (benefit uptake increased X%, support calls decreased Y%). Use that to sell the next.
+### 4. Regulation blocks the advice
+Financial advice is regulated. If PocketCFO's recommendations are classified as "financial advice" rather than "financial education," it may need licensing. The B2B model helps — deploying institutions likely have compliance infrastructure.
+**Survival condition**: Stay on the "education and tools" side of the line. Show calculations and options. Never say "you should" — say "here's what the math shows." Consult a fintech attorney before Phase 2. The audit trail (every recommendation traceable to a rule) is a regulatory asset.
 
-### 5. AI assistants get persistent memory and proactive features
-If ChatGPT gains persistent user profiles and the ability to send proactive alerts ("your EITC filing window opens next week"), PocketCFO's Phase 2 moat disappears before it's built.
-**Survival condition**: Speed. The window for building longitudinal user relationships is open now but closing. The advantage of a purpose-built tool over a general AI diminishes every quarter. Ship Phase 2 fast.
+### 5. AI gets persistent memory and proactive features
+If ChatGPT gains persistent user profiles and proactive alerts, the consumer app's differentiation shrinks. Under the engine framing, this is less threatening — persistent AI still can't provide auditable, compliance-safe recommendations for institutional deployment.
+**Survival condition**: The verified engine thesis. PocketCFO's value is not "better than AI at conversation" — it's "the thing AI calls when it needs verified financial logic."
+
+### 6. Rules database falls out of date
+Tax laws change yearly, benefit thresholds shift, state programs evolve. If the rules database decays, every recommendation becomes unreliable and the compliance/audit moat collapses.
+**Survival condition**: Partnership with organizations that maintain these datasets (Benefits.gov, Code for America, state benefit agencies). Rules must be configuration, not code — updatable without engineering effort.
 
 ## Who This Is For
 
