@@ -37,22 +37,44 @@ This is the central strategic question and we confront it directly:
 
 **"Why wouldn't someone just ask ChatGPT?"**
 
-A general-purpose AI can answer any financial question. But answering questions is not the same as solving problems. The gap between "I can answer your question" and "I will solve your problem" is where PocketCFO lives:
+The defensive answer — persistence, proactivity, domain safety, zero friction — has a 12-24 month shelf life. ChatGPT already has memory. Proactive notifications are a feature away. Free matters less when AI is bundled into devices people already own. Defending on these grounds is a losing race.
+
+**The offensive answer: General-purpose AI structurally cannot be institutionally deployed for financial guidance.**
+
+An employer cannot hand their hourly workers ChatGPT and say "use this for financial advice." An AI that hallucinates a $5,000 EITC when the real number is $2,400 causes real harm — and the employer is liable. A CDFI cannot deploy a tool whose outputs can't be audited. A nonprofit can't report impact metrics from a system with no deterministic logic.
+
+PocketCFO occupies the position AI cannot: a compliance-safe, auditable, deterministic financial logic layer.
+
+### The Architecture
+
+```
+[User] → [AI conversational layer] → [PocketCFO verified engine] → [Auditable output]
+```
+
+AI handles the human side: understanding a user's situation from natural language, explaining results in plain English, behavioral coaching. PocketCFO handles the side that can't be wrong: dollar amounts, eligibility determinations, deadline calculations. Every number the user sees passes through verified rules, not generation.
+
+### Why This Gets Stronger Over Time
+
+As AI gets better at conversation, PocketCFO's conversational layer matters less — but its verified engine matters *more*, because more AI interfaces need a trustworthy financial backend to call.
+
+PocketCFO doesn't compete with AI. It becomes the layer AI talks *through*.
+
+### The Principle
+
+**AI for understanding and communication. Rules for numbers and eligibility. Never the reverse.**
+
+This isn't just a safety principle. It's the entire competitive strategy.
+
+### What This Means Concretely
 
 | General AI | PocketCFO |
 |---|---|
-| Answers when asked | Acts before you think to ask |
-| Forgets you between sessions | Knows your situation over time |
-| Gives generic advice | Gives *your* numbers |
-| Requires financial literacy to ask the right questions | Assumes you don't know what to ask |
-| May hallucinate dollar amounts | Uses verified rules and thresholds |
-| Available to ChatGPT Plus subscribers ($20/mo) | Free. No sign-up. |
-
-**The moat is not "better AI."** The moat is:
-1. **Persistent context** — knowing your debts, income, benefits, and goals across months and years
-2. **Proactive delivery** — reaching you at the right moment (EITC deadline, open enrollment, benefit expiration)
-3. **Domain safety** — never hallucinating a dollar amount, never giving advice that violates fiduciary standards
-4. **Zero friction** — no account, no subscription, no data collection, works on a $50 phone
+| Can't be deployed by institutions (liability, auditability) | Built for institutional deployment |
+| Outputs can't be traced to a rule | Every recommendation cites its source |
+| May hallucinate dollar amounts | Deterministic, verified calculations |
+| Requires user to know what to ask | Tells you what you don't know you don't know |
+| Forgets context between sessions | Maintains structured financial state |
+| One-size-fits-all | Customized per institution, population, geography |
 
 ## Business Model
 
