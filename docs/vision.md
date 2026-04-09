@@ -210,15 +210,21 @@ Financial tools for low-income users fail when they feel like sales funnels. But
 
 PocketCFO calls itself an "AI financial advisor." Today, it has zero AI. Every calculation is deterministic rules. This gap must be addressed — either by adding AI where it genuinely helps, or by dropping the "AI" label.
 
+### The strategic role of AI
+
+AI is not PocketCFO's competitive advantage. The verified rules engine is. AI's role is to make the verified engine more accessible and more useful — never to replace it.
+
 ### Where AI adds real value:
 
-1. **Natural language intake**: Instead of a 5-step form, let the user describe their situation conversationally. "I make $15/hr at Walmart, I have about $8K in credit card debt and $22K in student loans, and I want to buy a house someday." An LLM can extract structured data from this — income, debts, goals — with less friction than form fields.
+1. **Natural language intake**: Instead of a 5-step form, let the user describe their situation conversationally. "I make $15/hr at Walmart, I have about $8K in credit card debt and $22K in student loans, and I want to buy a house someday." An LLM can extract structured data from this with less friction than form fields.
 
-2. **Personalized explanation**: The current action plan says "Apply for EITC — estimated $2,400." An AI can say "You worked full-time at $15/hr last year with two kids — that qualifies you for the Earned Income Tax Credit. It's $2,400 deposited directly into your bank account when you file taxes. Here's exactly how to claim it on your return."
+2. **Personalized explanation**: The current action plan says "Apply for EITC — estimated $2,400." An AI can say "You worked full-time at $15/hr last year with two kids — that qualifies you for the Earned Income Tax Credit. It's $2,400 deposited directly into your bank account when you file taxes. Here's exactly how to claim it."
 
-3. **Edge case handling**: Rule-based systems break on edge cases. Self-employed income, irregular pay, gig workers with multiple 1099s, mixed immigration status households. An AI can reason about situations the rules don't cover.
+3. **Edge case handling**: Rule-based systems break on edge cases. Self-employed income, irregular pay, gig workers with multiple 1099s, mixed immigration status households. An AI can reason about situations the rules don't cover — while flagging that its output is advisory, not deterministic.
 
 4. **Behavioral coaching**: The hard part of financial planning isn't math — it's behavior. An AI can have an ongoing conversation about spending patterns, provide encouragement, and adapt its tone to the user's emotional state.
+
+5. **Institutional customization**: An AI layer can adapt the tool's language, examples, and tone for different institutional contexts — a CDFI in rural Appalachia vs. an employer program for urban hourly workers — without changing the underlying rules engine.
 
 ### Where AI is dangerous:
 
@@ -228,10 +234,10 @@ PocketCFO calls itself an "AI financial advisor." Today, it has zero AI. Every c
 
 3. **Investment advice**: Anything resembling securities advice triggers regulatory requirements (SEC, FINRA). PocketCFO must never cross this line.
 
-### The AI integration principle:
+### The integration principle:
 **AI for understanding and communication. Rules for numbers and eligibility. Never the reverse.**
 
-The AI layer makes the tool more accessible and more personal. The rules layer keeps it accurate and safe. This hybrid approach is the actual "AI financial advisor" — not a chatbot that makes up numbers, but a system where AI handles the human side and verified logic handles the math.
+This principle is the foundation of both product safety and competitive strategy. It's what makes PocketCFO institutionally deployable where general AI is not.
 
 ## Roadmap Thesis
 
