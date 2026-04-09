@@ -122,39 +122,53 @@ This is the PBS model, taken seriously. Free for viewers. Funded by institutions
 
 **What's defensible today**: Almost nothing. The current product is a well-designed calculator. Any fintech startup, bank, or AI company could replicate it in a week. There is no proprietary data, no network effect, no switching cost, no regulatory advantage.
 
-**What must become defensible**: The competitive moat must be built, not assumed. Here's the honest assessment of each potential moat:
+**What must become defensible**: The competitive moat must be built, not assumed.
 
-### 1. Trust architecture
-Financial tools for low-income users fail when they feel like sales funnels. PocketCFO's privacy-first, no-signup, local-data architecture is not just a feature — it's the foundation of trust. The populations we serve have been burned by financial products before. They don't trust easily. Earning that trust requires *proving* you have no incentive to exploit them.
+### Moat 1: Institutional integration depth (Primary)
 
-**Moat strength: Weak alone, strong as foundation.** Trust takes years to build and seconds to destroy. It's necessary but not sufficient — a trusted tool nobody uses is still a failure. Trust becomes a moat only when combined with distribution (the institution that deploys PocketCFO vouches for it) and longitudinal use (the user who's tracked their debt payoff for 6 months won't switch).
+Every CDFI deployment requires understanding that CDFI's specific programs, population, and workflows. Every employer deployment requires mapping their specific benefits package. This integration work is unsexy, manual, and cumulative. It's also the exact work a competitor would need to replicate for each institution they want to win.
 
-### 2. Designed for financial illiteracy (not against it)
-Most financial tools assume you know what an APR is, what the EITC is, what a 401(k) match means. PocketCFO assumes you don't. The UX must never require financial vocabulary to extract value. "You're leaving $2,400 on the table at tax time" is better than "You may be eligible for the Earned Income Tax Credit."
+This is the Salesforce moat — not technology, but accumulated institutional configuration. Each integration is a mini-moat that compounds over time.
 
-**Moat strength: Medium.** This is a UX philosophy, not a technology. It's hard to copy *well* because it requires genuine empathy for the user, but it's not structurally defensible. The real test: can a general-purpose AI like ChatGPT be as accessible? Possibly — but it still requires the user to *open ChatGPT and ask a question*, which requires knowing you have a question to ask. PocketCFO's value is in *telling you what you don't know you don't know.*
+**Moat strength: Strong once built.** Requires institutional sales and deployment, which doesn't exist yet. The moat doesn't form until the first deployment ships.
 
-### 3. Action over information
-The end state is not "here's what you should do." The end state is "I did it for you." Auto-filling benefit applications. Pre-populating tax returns. Scheduling the right moves at the right time. Information without action is just another burden on people who already have too many.
+### Moat 2: Verified rules database
 
-**Moat strength: Strong (once built).** Action capabilities require API integrations, regulatory compliance, institutional partnerships. Each integration is a mini-moat: connecting to state benefit portals, IRS Free File APIs, employer benefit systems. This is hard, slow work that compounds over time. But it's Phase 3 — the moat doesn't exist yet.
+A comprehensive, version-controlled database of federal and state benefit eligibility rules, tax credit thresholds, and program deadlines — maintained and auditable. The IRS changes rules yearly. States change programs constantly. Maintaining this is expensive and boring, which means most competitors won't do it well.
 
-### 4. Longitudinal intelligence
-A one-time calculator has no moat. A system that tracks your progress from $12K in debt to debt-free, that adjusts recommendations as your income changes, that celebrates milestones — that's a relationship, not a tool.
+**Moat strength: Medium.** Requires dedicated maintenance effort and eventually partnerships with organizations like Benefits.gov and Code for America who maintain similar datasets. The moat compounds with coverage — 50-state benefit rules are significantly harder to replicate than federal-only.
 
-**Moat strength: Strong (once earned).** User data accumulated over months is the ultimate switching cost. Not because the user is locked in — but because starting over with a new tool means losing their history, their progress visualization, their momentum. This is the Strava model: the run tracker isn't special, but your 2 years of running data is.
+### Moat 3: Compliance/audit trail
 
-### The Competitive Landscape (honest)
+Every recommendation PocketCFO makes is traceable to a specific rule with a specific source. "Recommended EITC because income = $34,000, dependents = 2, threshold = $X per IRS Publication Y." This auditability is worthless to a consumer. It is critical to an institution deploying the tool — if a user says "PocketCFO told me I qualified for X and I didn't," the institution needs to trace the logic.
+
+General-purpose AI cannot provide this. This is the structural advantage that makes institutional deployment possible and that AI commoditization cannot erode.
+
+**Moat strength: Strong in B2B context.** Meaningless for consumer use. This moat only activates under the institutional framing.
+
+### Moat 4: Trust via institutional endorsement
+
+Financial tools for low-income users fail when they feel like sales funnels. But trust isn't built from a website — it's inherited from the institution that deploys the tool. "Your employer offers this" or "your credit union recommends this" carries more weight than any privacy policy.
+
+**Moat strength: Inherited, not built.** Depends on having institutional deployments. Without them, this moat doesn't exist.
+
+### What's NOT a moat (dropped)
+
+**Longitudinal intelligence** — Tracking user progress over time is a good UX feature. It's not a structural moat. Any competitor can copy it in weeks.
+
+**Designed for financial illiteracy** — Using plain language instead of financial jargon makes the product better. It doesn't prevent competition. It's a UX philosophy, not a defensible position.
+
+### The Competitive Landscape
 
 | Competitor | What they do better | What PocketCFO does better |
 |---|---|---|
-| **NerdWallet / Bankrate** | Established brand, SEO dominance, comprehensive content | No affiliate-driven recommendations, privacy-first |
-| **Mint / Credit Karma** | Bank integration, credit score, automation | No data harvesting, no account required |
-| **ChatGPT / Claude** | Better at answering arbitrary financial questions | Persistent context, proactive, no hallucination risk on numbers |
-| **VITA / NFCC counselors** | Human empathy, complex situation handling | Available 24/7, no appointment, no stigma |
-| **Employer wellness programs (e.g., Even, PayActiv)** | Payroll integration, earned wage access | Not tied to a single employer, portable |
+| **NerdWallet / Bankrate** | Established brand, SEO dominance, comprehensive content | No affiliate-driven recommendations, institutional deployability |
+| **Mint / Credit Karma** | Bank integration, credit score, automation | No data harvesting, compliance-safe, auditable |
+| **ChatGPT / Claude** | Better at arbitrary financial conversation | Deterministic outputs, auditable, institutionally deployable |
+| **VITA / NFCC counselors** | Human empathy, complex situation handling | Available 24/7, no appointment, no stigma, scales with deployment |
+| **Employer wellness (Even, PayActiv)** | Payroll integration, earned wage access | Not tied to a single employer, portable, open |
 
-**The gap PocketCFO fills**: No existing tool combines (a) free, (b) private, (c) persistent, (d) proactive, (e) designed for people who earn under $50K. Each competitor covers 2-3 of these. No one covers all 5.
+**The gap PocketCFO fills**: No existing tool is (a) free for end users, (b) compliance-safe for institutions, (c) customizable per deployment, (d) auditable, and (e) designed for people who earn under $50K. Each competitor covers 2-3. No one covers all 5.
 
 ## Weakest Assumptions (Honest Assessment)
 
