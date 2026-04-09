@@ -1,6 +1,6 @@
 # PocketCFO
 
-AI financial advisor that gives minimum-wage workers the same quality financial planning that millionaires get.
+Financial decision infrastructure for institutions serving low-income populations. Verified, auditable financial guidance — debt optimization, benefit eligibility, tax credit estimation — deployed by CDFIs, employers, and nonprofits as a white-labeled tool. Consumer app at pocketcfo.com serves as public demo and proof of concept.
 
 ## Tech Stack
 
