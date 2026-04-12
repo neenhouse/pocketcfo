@@ -58,7 +58,7 @@ These are the minimum capabilities needed to deploy at one CDFI:
 
 | Item | Status | Notes |
 |------|--------|-------|
-| White-label branding configuration | PLANNED | Custom logo, colors, institution name on landing page. Config-driven, not code change |
+| White-label branding configuration | COMPLETE | `BrandingConfig` in `src/lib/branding.ts`. Configures app name, hero text, CTA text, colors (CSS custom property overrides), logo URL, "Powered by PocketCFO" toggle. Example CDFI config included. Switch active branding with one line change |
 | Institution-specific benefit configuration | PLANNED | Map deploying CDFI's specific programs into benefits finder. JSON/YAML config per deployment |
 | Aggregate analytics (anonymized) | PLANNED | Assessment count, benefit categories surfaced, estimated dollar impact. No PII. Simple event tracking to a privacy-respecting backend (Plausible or equivalent) |
 | Audit trail for recommendations | PLANNED | Every recommendation cites the rule and source. "EITC estimated at $2,400 per IRS Pub 596, 2025 thresholds, filing status: HoH, dependents: 2" |

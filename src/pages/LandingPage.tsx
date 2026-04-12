@@ -1,6 +1,7 @@
 import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import { branding } from '../lib/branding'
 import './LandingPage.css'
 
 const features = [
@@ -82,23 +83,23 @@ export default function LandingPage() {
       <section className="hero">
         <div className="container hero-inner hero-split">
           <div className="hero-copy">
-            <div className="hero-badge">Free forever. No credit card. No catch.</div>
+            <div className="hero-badge">{branding.hero.badge}</div>
             <h1 className="hero-title">
-              <span className="hero-gold">Millionaire Advice.</span>
+              <span className="hero-gold">{branding.hero.titleAccent}</span>
               <br />
-              Minimum Wage Price.
+              {branding.hero.title}
             </h1>
             <p className="hero-subtitle">
-              The same caliber of financial strategy that costs $500/hour from a wealth manager.
+              {branding.hero.subtitle}
               <br />
               <strong>Free. Because financial strategy shouldn't cost money you don't have.</strong>
             </p>
             <div className="hero-actions">
               <Link to="/assessment">
-                <Button variant="primary" size="lg">Get Your Strategy</Button>
+                <Button variant="primary" size="lg">{branding.hero.ctaLabel}</Button>
               </Link>
               <a href="#how-it-works">
-                <Button variant="secondary" size="lg">See How It Works</Button>
+                <Button variant="secondary" size="lg">{branding.hero.secondaryCtaLabel}</Button>
               </a>
             </div>
 
@@ -220,10 +221,10 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="cta-section">
         <div className="container cta-inner">
-          <h2 className="cta-title">Your income doesn't determine the quality of advice you deserve.</h2>
-          <p className="cta-subtitle">Takes 3 minutes. Changes everything.</p>
+          <h2 className="cta-title">{branding.cta.title}</h2>
+          <p className="cta-subtitle">{branding.cta.subtitle}</p>
           <Link to="/assessment">
-            <Button variant="primary" size="lg">Get Your Free Strategy</Button>
+            <Button variant="primary" size="lg">{branding.cta.buttonLabel}</Button>
           </Link>
         </div>
       </section>
