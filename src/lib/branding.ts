@@ -8,6 +8,7 @@
  * Phase 1: Static import (one config per build/deploy)
  * Phase 2: Dynamic loading from JSON URL or environment variables
  */
+import type { BenefitRule } from './rules/types'
 
 export interface BrandingConfig {
   /** Institution or deployment name (shown in header, footer) */
@@ -47,6 +48,13 @@ export interface BrandingConfig {
 
   /** Show "Powered by PocketCFO" in footer for white-label deployments */
   showPoweredBy: boolean
+
+  /**
+   * Institution-specific benefit rules.
+   * These are merged with federal rules in the benefits finder.
+   * Rules with the same ID as a federal rule override it (state/local > federal).
+   */
+  institutionRules?: BenefitRule[]
 }
 
 /** Default branding: PocketCFO consumer app */
@@ -105,6 +113,42 @@ export const exampleCdfiBranding: BrandingConfig = {
   },
 
   showPoweredBy: true,
+
+  institutionRules: [
+    {
+      id: 'cf-emergency-grant',
+      name: 'Community First Emergency Grant',
+      description: 'One-time $500 emergency grant for Community First CDFI clients facing unexpected expenses. No repayment required.',
+      category: 'government',
+      source: 'Community First CDFI — Client Services (2025)',
+      taxYear: 2025,
+      jurisdiction: 'OH',
+      applies: () => true,
+      eligible: (_profile, annualIncome) => annualIncome < 45000,
+      estimatedValue: () => 500,
+      requirements: () => [
+        'Active Community First client',
+        'Income under $45,000',
+        'Apply through your counselor',
+      ],
+    },
+    {
+      id: 'cf-financial-coaching',
+      name: 'Free Financial Coaching',
+      description: 'One-on-one financial coaching sessions with a certified counselor. Available to all Community First clients at no cost.',
+      category: 'government',
+      source: 'Community First CDFI — Coaching Program (2025)',
+      taxYear: 2025,
+      jurisdiction: 'OH',
+      applies: () => true,
+      eligible: () => true,
+      estimatedValue: () => 600, // ~$100/session x 6 sessions
+      requirements: () => [
+        'Active Community First client',
+        'Schedule through client portal',
+      ],
+    },
+  ],
 }
 
 /**

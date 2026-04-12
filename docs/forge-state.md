@@ -6,20 +6,22 @@ Last updated: 2026-04-12
 Phase 1: Honest Calculator + First Deployment
 
 ## Last Completed Tasks
-1. P0: White-label branding config — BrandingConfig type, color overrides via CSS custom properties, configurable hero/CTA/header/footer, example CDFI config included
-2. P2: Rules database architecture — BenefitRule type, evaluation engine, federal rules as structured objects, state override mechanism, 6 new tests
-3. P2: Assessment versioning — sectionTimestamps on profile, pre-populate on retake, 14-day freshness banner on dashboard
-4. P2: Return visit detection — returning users auto-redirect from landing page to dashboard (bypass with ?new=1)
-5. P2: Data export/import — JSON backup/restore via Export Data / Import Data buttons on dashboard
-6. P1: Externalized all hardcoded thresholds to src/lib/rules/federal.ts
-7. P1: Added source citations to all benefit cards + tax year indicator
-8. P0: Removed fabricated impact metrics — replaced with verifiable methodology claims
+1. P0: Audit trail — generateAuditTrail() in rules engine, "Export Audit Report" button on Benefits Finder, structured JSON with rule/source/inputs/result
+2. P0: Institution-specific benefit config — institutionRules in BrandingConfig, merged with federal rules, example CDFI with emergency grant + coaching
+3. P0: White-label branding config — BrandingConfig type, color overrides via CSS custom properties, configurable hero/CTA/header/footer
+4. P2: Rules database architecture — BenefitRule type, evaluation engine, state override mechanism, 6 tests
+5. P2: Assessment versioning, return visit detection, data export/import — all complete
+6. P1: Externalized thresholds, source citations, tax year indicator
+7. P0: Removed fabricated impact metrics
 
 ## Next Priorities
-P0 Institutional: Institution-specific benefit configuration (JSON/YAML config per deployment)
-P0 Institutional: Aggregate analytics (anonymized event tracking)
-P0 Institutional: Audit trail for recommendations
-P1: State-level benefit rules for pilot state (architecture is ready, needs a target state)
+P0 Institutional: Aggregate analytics (anonymized event tracking — needs backend/Plausible)
+P0 Institutional: Deploy pilot and measure outcomes (needs real CDFI)
+P0 Institutional: Write case study from pilot data (needs real CDFI)
+P1: State-level benefit rules for pilot state (architecture ready, needs target state)
 
-## All P2 Foundation Items: COMPLETE
-All four P2 items from the original PRD are complete.
+## Completion Status
+- All P0 Credibility items: COMPLETE
+- All P1 Accuracy items: COMPLETE (except state-level rules — needs target state)
+- All P2 Foundation items: COMPLETE
+- P0 Institutional: 4/6 COMPLETE (audit trail, white-label, benefit config, branding). Remaining 2 need real CDFI or backend.

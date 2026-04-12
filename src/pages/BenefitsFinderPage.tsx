@@ -4,15 +4,21 @@ import Button from '../components/ui/Button'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import type { FinancialProfile } from '../lib/types'
 import { DEFAULT_PROFILE } from '../lib/types'
-import { RULES_TAX_YEAR, federalBenefitRules, evaluateBenefits } from '../lib/rules'
+import { RULES_TAX_YEAR, federalBenefitRules, evaluateBenefits, generateAuditTrail } from '../lib/rules'
+import { branding } from '../lib/branding'
 import './BenefitsFinderPage.css'
+
+// Merge federal rules with any institution-specific rules from branding config
+const allRules = branding.institutionRules
+  ? [...federalBenefitRules, ...branding.institutionRules]
+  : federalBenefitRules
 
 export default function BenefitsFinderPage() {
   const [profile] = useLocalStorage<FinancialProfile>('pocketcfo-profile', DEFAULT_PROFILE)
   const [claimed, setClaimed] = useState<Set<string>>(new Set())
   const [filter, setFilter] = useState<'all' | 'eligible' | 'government' | 'tax' | 'employer'>('all')
 
-  const benefits = useMemo(() => evaluateBenefits(profile, federalBenefitRules), [profile])
+  const benefits = useMemo(() => evaluateBenefits(profile, allRules), [profile])
 
   const filtered = benefits.filter(b => {
     if (filter === 'eligible') return b.eligible
@@ -30,6 +36,33 @@ export default function BenefitsFinderPage() {
       else next.add(id)
       return next
     })
+  }
+
+  const exportAuditReport = () => {
+    const records = generateAuditTrail(profile, allRules)
+    const report = {
+      generatedAt: new Date().toISOString(),
+      taxYear: RULES_TAX_YEAR,
+      profileSummary: {
+        annualIncome: records[0]?.inputs.annualIncome ?? 0,
+        filingStatus: profile.filingStatus,
+        dependents: profile.dependents,
+        hasEmployerBenefits: profile.hasEmployerBenefits,
+      },
+      evaluations: records,
+      summary: {
+        totalEvaluated: records.length,
+        totalEligible: records.filter(r => r.result.eligible).length,
+        totalEstimatedValue: records.filter(r => r.result.eligible).reduce((a, r) => a + r.result.estimatedValue, 0),
+      },
+    }
+    const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `pocketcfo-audit-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(url)
   }
 
   const categoryLabel = (cat: string) => {
@@ -53,7 +86,12 @@ export default function BenefitsFinderPage() {
   return (
     <div className="benefits-page container">
       <div className="benefits-header">
-        <h1>Benefits Finder</h1>
+        <div className="benefits-header-top">
+          <h1>Benefits Finder</h1>
+          {profile.completedAt && (
+            <Button variant="ghost" size="sm" onClick={exportAuditReport}>Export Audit Report</Button>
+          )}
+        </div>
         <p>Billions in benefits go unclaimed every year. Let's make sure you're not leaving money on the table.</p>
         <p className="benefits-tax-year">Thresholds current as of Tax Year {RULES_TAX_YEAR}. All eligibility estimates based on federal guidelines.</p>
       </div>

@@ -59,9 +59,9 @@ These are the minimum capabilities needed to deploy at one CDFI:
 | Item | Status | Notes |
 |------|--------|-------|
 | White-label branding configuration | COMPLETE | `BrandingConfig` in `src/lib/branding.ts`. Configures app name, hero text, CTA text, colors (CSS custom property overrides), logo URL, "Powered by PocketCFO" toggle. Example CDFI config included. Switch active branding with one line change |
-| Institution-specific benefit configuration | PLANNED | Map deploying CDFI's specific programs into benefits finder. JSON/YAML config per deployment |
+| Institution-specific benefit configuration | COMPLETE | `institutionRules` field in `BrandingConfig`. Institution-specific `BenefitRule[]` merged with federal rules. Example CDFI config includes emergency grant and coaching programs |
 | Aggregate analytics (anonymized) | PLANNED | Assessment count, benefit categories surfaced, estimated dollar impact. No PII. Simple event tracking to a privacy-respecting backend (Plausible or equivalent) |
-| Audit trail for recommendations | PLANNED | Every recommendation cites the rule and source. "EITC estimated at $2,400 per IRS Pub 596, 2025 thresholds, filing status: HoH, dependents: 2" |
+| Audit trail for recommendations | COMPLETE | `generateAuditTrail()` in rules engine produces structured JSON per evaluation: rule ID, source, tax year, jurisdiction, user inputs, computed result. "Export Audit Report" button on Benefits Finder page |
 | Deploy pilot and measure outcomes | PLANNED | 90-day pilot with pre-agreed success metrics |
 | Write case study from pilot data | PLANNED | Real numbers, real outcomes. This is the sales collateral for every subsequent deal |
 

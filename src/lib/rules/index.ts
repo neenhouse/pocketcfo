@@ -15,5 +15,6 @@ export {
 } from './federal'
 
 export type { BenefitRule, EvaluatedBenefit, RulesBundle } from './types'
+export type { AuditRecord } from './engine'
 export { federalBenefitRules } from './benefits'
-export { evaluateBenefits } from './engine'
+export { evaluateBenefits, generateAuditTrail } from './engine'

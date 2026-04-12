@@ -7,6 +7,12 @@
   margin-bottom: var(--space-10);
 }
 
+.benefits-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .benefits-header h1 {
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   color: var(--warm-50);
