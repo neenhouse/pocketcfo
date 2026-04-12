@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
@@ -8,9 +9,66 @@ import type { FinancialProfile, Strategy } from '../lib/types'
 import { DEFAULT_PROFILE } from '../lib/types'
 import './DashboardPage.css'
 
+function exportData(profile: FinancialProfile, strategy: Strategy | null) {
+  const data = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    profile,
+    strategy,
+  }
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `pocketcfo-backup-${new Date().toISOString().slice(0, 10)}.json`
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+function validateImport(data: unknown): { profile: FinancialProfile; strategy: Strategy | null } | string {
+  if (!data || typeof data !== 'object') return 'Invalid file format'
+  const obj = data as Record<string, unknown>
+  if (!obj.profile || typeof obj.profile !== 'object') return 'Missing profile data'
+  const p = obj.profile as Record<string, unknown>
+  if (typeof p.income !== 'number' || !p.payFrequency || !p.filingStatus) {
+    return 'Invalid profile data — missing required fields'
+  }
+  return { profile: obj.profile as FinancialProfile, strategy: (obj.strategy as Strategy) ?? null }
+}
+
 export default function DashboardPage() {
-  const [profile] = useLocalStorage<FinancialProfile>('pocketcfo-profile', DEFAULT_PROFILE)
+  const [profile, setProfile] = useLocalStorage<FinancialProfile>('pocketcfo-profile', DEFAULT_PROFILE)
   const [strategy, setStrategy] = useLocalStorage<Strategy | null>('pocketcfo-strategy', null)
+  const [importError, setImportError] = useState<string | null>(null)
+  const [importSuccess, setImportSuccess] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setImportError(null)
+    setImportSuccess(false)
+    const reader = new FileReader()
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result as string)
+        const result = validateImport(parsed)
+        if (typeof result === 'string') {
+          setImportError(result)
+        } else {
+          setProfile(result.profile)
+          setStrategy(result.strategy)
+          setImportSuccess(true)
+          setTimeout(() => setImportSuccess(false), 3000)
+        }
+      } catch {
+        setImportError('Could not read file — is it a valid PocketCFO backup?')
+      }
+    }
+    reader.readAsText(file)
+    // Reset so the same file can be re-selected
+    e.target.value = ''
+  }
 
   if (!strategy || !profile.completedAt) {
     return (
@@ -91,10 +149,21 @@ export default function DashboardPage() {
           <h1>Your Financial Strategy</h1>
           <p className="dashboard-date">Generated {new Date(profile.completedAt!).toLocaleDateString()}</p>
         </div>
-        <Link to="/assessment">
-          <Button variant="ghost" size="sm">Retake Assessment</Button>
-        </Link>
+        <div className="dashboard-actions">
+          <Button variant="ghost" size="sm" onClick={() => exportData(profile, strategy)}>Export Data</Button>
+          <Button variant="ghost" size="sm" onClick={() => fileInputRef.current?.click()}>Import Data</Button>
+          <input ref={fileInputRef} type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+          <Link to="/assessment">
+            <Button variant="ghost" size="sm">Retake Assessment</Button>
+          </Link>
+        </div>
       </div>
+      {importError && (
+        <div className="import-message error" role="alert">{importError}</div>
+      )}
+      {importSuccess && (
+        <div className="import-message success" role="status">Data imported successfully!</div>
+      )}
 
       {/* Summary Cards */}
       <div className="summary-grid">

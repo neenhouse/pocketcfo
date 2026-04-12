@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import './LandingPage.css'
@@ -55,6 +55,27 @@ const advisorServices = [
 ]
 
 export default function LandingPage() {
+  const [searchParams] = useSearchParams()
+
+  // Return visit detection: redirect users with existing assessment data to dashboard
+  // Use ?new=1 to bypass (e.g., from "Start Over" flows)
+  let hasExistingAssessment = false
+  if (!searchParams.has('new')) {
+    try {
+      const stored = localStorage.getItem('pocketcfo-profile')
+      if (stored) {
+        const profile = JSON.parse(stored)
+        hasExistingAssessment = !!profile.completedAt
+      }
+    } catch {
+      // Corrupted data — stay on landing page
+    }
+  }
+
+  if (hasExistingAssessment) {
+    return <Navigate to="/dashboard" replace />
+  }
+
   return (
     <div className="landing">
       {/* Hero */}

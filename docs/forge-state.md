@@ -1,28 +1,20 @@
 # Forge State
 
-Last updated: 2026-04-09
+Last updated: 2026-04-12
 
 ## Current Phase
 Phase 1: Honest Calculator + First Deployment
 
 ## Last Completed Tasks
-1. Deep docs evolution pass on vision.md and prd.md (human need thesis, buyer profiles, flywheel, 5-year survival)
-2. P0: Removed fabricated impact metrics — replaced with verifiable methodology claims
+1. P2: Return visit detection — returning users auto-redirect from landing page to dashboard (bypass with ?new=1)
+2. P2: Data export/import — JSON backup/restore via Export Data / Import Data buttons on dashboard
 3. P1: Externalized all hardcoded thresholds to src/lib/rules/federal.ts
 4. P1: Added source citations to all benefit cards + tax year indicator
-
-## Uncommitted Changes (ready to commit)
-- docs/vision.md, docs/prd.md — major evolution + status updates
-- src/lib/rules/federal.ts, src/lib/rules/index.ts — NEW: centralized rules
-- src/lib/types.ts — added source field to Benefit interface
-- src/lib/strategy.ts — imports from rules module
-- src/pages/LandingPage.tsx — fabricated metrics replaced, AnimatedCounter removed
-- src/pages/BenefitsFinderPage.tsx — source citations, tax year, rules imports
-- src/pages/BenefitsFinderPage.css — source citation styles
+5. P0: Removed fabricated impact metrics — replaced with verifiable methodology claims
 
 ## Next Priorities
-P2: Return visit detection (show dashboard for returning users)
-P2: Data export/import (JSON backup/restore)
+P2: Assessment versioning (track when each section was last updated)
+P2: Rules database architecture (versioned, multi-state benefit rules data model)
 P0 Institutional: White-label branding config (needs real CDFI to validate against)
 
 ## Open PLANNED Items (from PRD)

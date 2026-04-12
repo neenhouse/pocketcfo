@@ -78,9 +78,9 @@ These are the minimum capabilities needed to deploy at one CDFI:
 
 | Item | Status | Notes |
 |------|--------|-------|
-| Data export/import (JSON) | PLANNED | Let users backup and restore their data |
+| Data export/import (JSON) | COMPLETE | Export/Import buttons on dashboard. Downloads dated JSON backup, imports with validation |
 | Assessment versioning | PLANNED | Track when the user last updated each section |
-| Return visit detection | PLANNED | If user has existing data, show dashboard directly instead of landing page |
+| Return visit detection | COMPLETE | Landing page redirects to dashboard if assessment exists. Bypass with `?new=1` |
 | Rules database architecture | PLANNED | Design the data model for versioned, multi-state benefit rules. This is the foundation of the verified engine |
 
 ### Phase 1 Success Metrics
