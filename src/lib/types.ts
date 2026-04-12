@@ -15,6 +15,12 @@ export interface FinancialProfile {
   goals: Goal[]
   hasEmployerBenefits: boolean
   completedAt?: string
+  sectionTimestamps?: {
+    income?: string
+    expenses?: string
+    debts?: string
+    goals?: string
+  }
 }
 
 export interface Debt {

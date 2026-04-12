@@ -15,10 +15,14 @@ function uid() { return Math.random().toString(36).slice(2, 9) }
 
 export default function AssessmentPage() {
   const navigate = useNavigate()
-  const [, setProfile] = useLocalStorage<FinancialProfile>('pocketcfo-profile', DEFAULT_PROFILE)
+  const [storedProfile, setProfile] = useLocalStorage<FinancialProfile>('pocketcfo-profile', DEFAULT_PROFILE)
   const [, setStrategy] = useLocalStorage<Strategy | null>('pocketcfo-strategy', null)
   const [step, setStep] = useState(0)
-  const [data, setData] = useState<FinancialProfile>({ ...DEFAULT_PROFILE })
+  // Pre-populate with existing data so returning users can update selectively
+  const [data, setData] = useState<FinancialProfile>(() => {
+    if (storedProfile.completedAt) return { ...storedProfile }
+    return { ...DEFAULT_PROFILE }
+  })
 
   const updateField = <K extends keyof FinancialProfile>(key: K, value: FinancialProfile[K]) => {
     setData(prev => ({ ...prev, [key]: value }))
@@ -55,7 +59,17 @@ export default function AssessmentPage() {
   }
 
   const handleSubmit = () => {
-    const completed = { ...data, completedAt: new Date().toISOString() }
+    const now = new Date().toISOString()
+    const completed: FinancialProfile = {
+      ...data,
+      completedAt: now,
+      sectionTimestamps: {
+        income: now,
+        expenses: now,
+        debts: now,
+        goals: now,
+      },
+    }
     setProfile(completed)
     const strat = generateStrategy(completed)
     setStrategy(strat)

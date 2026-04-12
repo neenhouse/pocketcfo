@@ -42,6 +42,8 @@ export default function DashboardPage() {
   const [importError, setImportError] = useState<string | null>(null)
   const [importSuccess, setImportSuccess] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  // Capture current time at mount for freshness calculation (avoids impure Date.now in render)
+  const [mountTime] = useState(() => Date.now())
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -104,6 +106,14 @@ export default function DashboardPage() {
     })
   }
 
+  const dataDaysOld = (() => {
+    if (!profile.sectionTimestamps) return 0
+    const timestamps = Object.values(profile.sectionTimestamps).filter(Boolean).map(t => new Date(t!).getTime())
+    if (timestamps.length === 0) return 0
+    const oldest = Math.min(...timestamps)
+    return Math.floor((mountTime - oldest) / (1000 * 60 * 60 * 24))
+  })()
+
   const impactColor = (impact: string) => {
     switch (impact) {
       case 'high': return 'var(--gold-400)'
@@ -163,6 +173,14 @@ export default function DashboardPage() {
       )}
       {importSuccess && (
         <div className="import-message success" role="status">Data imported successfully!</div>
+      )}
+
+      {/* Data freshness */}
+      {dataDaysOld >= 14 && (
+        <div className="freshness-banner">
+          Your financial data is {dataDaysOld} days old.{' '}
+          <Link to="/assessment">Update your assessment</Link> to keep your strategy accurate.
+        </div>
       )}
 
       {/* Summary Cards */}
