@@ -81,7 +81,7 @@ These are the minimum capabilities needed to deploy at one CDFI:
 | Data export/import (JSON) | COMPLETE | Export/Import buttons on dashboard. Downloads dated JSON backup, imports with validation |
 | Assessment versioning | COMPLETE | `sectionTimestamps` on profile, assessment pre-populates on retake, dashboard shows freshness banner after 14 days |
 | Return visit detection | COMPLETE | Landing page redirects to dashboard if assessment exists. Bypass with `?new=1` |
-| Rules database architecture | PLANNED | Design the data model for versioned, multi-state benefit rules. This is the foundation of the verified engine |
+| Rules database architecture | COMPLETE | `BenefitRule` type in `rules/types.ts`, evaluation engine in `rules/engine.ts`, federal rules in `rules/benefits.ts`. State rules override federal by ID. 6 tests including state override verification |
 
 ### Phase 1 Success Metrics
 

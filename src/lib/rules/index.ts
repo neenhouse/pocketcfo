@@ -13,3 +13,7 @@ export {
   EMPLOYER_FSA,
   STRATEGY,
 } from './federal'
+
+export type { BenefitRule, EvaluatedBenefit, RulesBundle } from './types'
+export { federalBenefitRules } from './benefits'
+export { evaluateBenefits } from './engine'
